@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Med UFMT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Med UFMT</h1>
+                <p>Calculadora de Médias</p>
+            </div>
+            <nav class="semester-nav">
+                <ul>
+                    <li><button class="nav-btn active" data-semester="1">1º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="2">2º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="3">3º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="4">4º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="5">5º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="6">6º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="7">7º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="8">8º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="9">9º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="10">10º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="11">11º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="12">12º Semestre</button></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h2 id="semester-title">1º Semestre</h2>
+                <div class="user-info">
+                    <span>Estudante</span>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div id="semester-1-content" class="semester-content active">
+                    <div class="calculator-card">
+                        <div class="card-header">
+                            <h3>Notas das Disciplinas</h3>
+                            <p>Insira suas notas para calcular a média final.</p>
+                        </div>
+                        <form id="calc-form-1">
+                            <div class="input-group">
+                                <label for="tutoria">Tutoria <span class="weight-badge">Peso 2.5</span></label>
+                                <input type="number" id="tutoria" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="pratica1">Prática I <span class="weight-badge">Peso 0.5</span></label>
+                                <input type="number" id="pratica1" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="pratica2">Prática II <span class="weight-badge">Peso 0.5</span></label>
+                                <input type="number" id="pratica2" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="praticaHisto">Prática Histo <span class="weight-badge">Peso
+                                        0.5</span></label>
+                                <input type="number" id="praticaHisto" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="apresSem">Apres. Sem. <span class="weight-badge">Peso 0.7</span></label>
+                                <input type="number" id="apresSem" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="banner">Banner <span class="weight-badge">Peso 0.3</span></label>
+                                <input type="number" id="banner" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="modulo">Módulo <span class="weight-badge">Peso 5.0</span> <small>(Nota
+                                        0-50)</small></label>
+                                <input type="number" id="modulo" step="0.01" min="0" max="50" placeholder="0.00">
+                            </div>
+                        </form>
+                        <div class="result-section">
+                            <div class="result-label">Média Final</div>
+                            <div class="result-value" id="final-result">0.00</div>
+                            <div class="result-status" id="result-status">Aguardando notas...</div>
+                        </div>
+                        <form>
+                            <div class="input-group">
+                                <label for="antropologia">Antropologia <span class="weight-badge">Peso
+                                        1.0</span></label>
+                                <input type="number" id="antropologia" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="ic">I.C. (Iniciação Científica) <span class="weight-badge">Peso
+                                        1.0</span></label>
+                                <input type="number" id="ic" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                        </form>
+                        <div class="result-section">
+                            <div class="result-label">CR (Média + IC + Antro)</div>
+                            <div class="result-value" id="final-cr">0.00</div>
+                            <div class="result-status" id="cr-status">Aguardando Médias...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="semester-placeholder" class="semester-content" style="display: none;">
+                    <div class="empty-state">
+                        <h3>Em breve</h3>
+                        <p>A calculadora para este semestre ainda está sendo desenvolvida.</p>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <p>&copy; 2025 Calculadora Med UFMT. Feito por: Marco Túlio Amaral e Ana Amaral.</p>
+            </footer>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
