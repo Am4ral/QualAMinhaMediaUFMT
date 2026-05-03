@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calculadora Med UFMT</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>Med UFMT</h1>
+                <p>Calculadora de Médias</p>
+            </div>
+            <nav class="semester-nav">
+                <ul>
+                    <li><button class="nav-btn active" data-semester="1">1º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="2">2º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="3">3º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="4">4º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="5">5º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="6">6º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="7">7º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="8">8º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="9">9º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="10">10º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="11">11º Semestre</button></li>
+                    <li><button class="nav-btn" data-semester="12">12º Semestre</button></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <main class="main-content">
+            <header class="top-bar">
+                <h2 id="semester-title">1º Semestre</h2>
+                <div class="user-info">
+                    <span>Estudante</span>
+                </div>
+            </header>
+
+            <div class="content-area">
+                <div id="semester-1-content" class="semester-content active">
+                    <div class="calculator-card">
+                        <div class="card-header">
+                            <h3>Notas das Disciplinas</h3>
+                            <p>Insira suas notas para calcular a média final.</p>
+                        </div>
+                        <form id="calc-form-1">
+                            <div class="input-group">
+                                <label for="tutoria">Tutoria <span class="weight-badge">Peso 2.5</span></label>
+                                <input type="number" id="tutoria" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="pratica1">Prática I <span class="weight-badge">Peso 0.5</span></label>
+                                <input type="number" id="pratica1" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="pratica2">Prática II <span class="weight-badge">Peso 0.5</span></label>
+                                <input type="number" id="pratica2" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="praticaHisto">Prática Histo <span class="weight-badge">Peso
+                                        0.5</span></label>
+                                <input type="number" id="praticaHisto" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="apresSem">Apres. Sem. <span class="weight-badge">Peso 0.7</span></label>
+                                <input type="number" id="apresSem" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="banner">Banner <span class="weight-badge">Peso 0.3</span></label>
+                                <input type="number" id="banner" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="modulo">Módulo <span class="weight-badge">Peso 5.0</span> <small>(Nota
+                                        0-50)</small></label>
+                                <input type="number" id="modulo" step="0.01" min="0" max="50" placeholder="0.00">
+                            </div>
+                        </form>
+                        <div class="result-section">
+                            <div class="result-label">Média Final</div>
+                            <div class="result-value" id="final-result">0.00</div>
+                            <div class="result-status" id="result-status">Aguardando notas...</div>
+                        </div>
+                        <form>
+                            <div class="input-group">
+                                <label for="antropologia">Antropologia <span class="weight-badge">Peso
+                                        1.0</span></label>
+                                <input type="number" id="antropologia" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="ic">I.C. (Iniciação Científica) <span class="weight-badge">Peso
+                                        1.0</span></label>
+                                <input type="number" id="ic" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                        </form>
+                        <div class="result-section">
+                            <div class="result-label">CR (Média + IC + Antro)</div>
+                            <div class="result-value" id="final-cr">0.00</div>
+                            <div class="result-status" id="cr-status">Aguardando Médias...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="semester-3-content" class="semester-content" style="display: none;">
+                    <div class="uc3-grid">
+                        <!-- Bases de Agressão e Defesa -->
+                        <div class="calculator-card">
+                            <div class="card-header">
+                                <h3>Bases de Agressão e Defesa</h3>
+                                <p>Insira suas notas para calcular a média final.</p>
+                            </div>
+                            <form class="uc3-form">
+                                <div class="input-group">
+                                    <label for="bad-parasitologia">Parasitologia <span class="weight-badge">Peso 0.225</span></label>
+                                    <input type="number" id="bad-parasitologia" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="bad-virologia">Virologia <span class="weight-badge">Peso 0.1</span></label>
+                                    <input type="number" id="bad-virologia" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="bad-imunologia">Imunologia <span class="weight-badge">Peso 0.225</span></label>
+                                    <input type="number" id="bad-imunologia" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="bad-patologia">Patologia <span class="weight-badge">Peso 0.225</span></label>
+                                    <input type="number" id="bad-patologia" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="bad-microbiologia">Microbiologia <span class="weight-badge">Peso 0.225</span></label>
+                                    <input type="number" id="bad-microbiologia" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                            </form>
+                            <div class="result-section">
+                                <div class="result-label">Nota Final</div>
+                                <div class="result-value" id="bad-result">0.00</div>
+                                <div class="result-status" id="bad-status">Aguardando notas...</div>
+                            </div>
+                        </div>
+
+                        <!-- Saúde do Adulto I -->
+                        <div class="calculator-card">
+                            <div class="card-header">
+                                <h3>Saúde do Adulto I</h3>
+                                <p>Insira suas notas para calcular a média final.</p>
+                            </div>
+                            <form class="uc3-form">
+                                <div class="input-group">
+                                    <label for="adulto-osce">OSCE <span class="weight-badge">Peso 1.25</span></label>
+                                    <input type="number" id="adulto-osce" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="adulto-praticas-he">Práticas no HUJM <span class="weight-badge">Peso 1.25</span></label>
+                                    <input type="number" id="adulto-praticas-he" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <small class="field-note">Média simples das práticas no HUJM</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="adulto-tutoria-media">Média das Tutorias <span class="weight-badge">Peso 2.5</span></label>
+                                    <input type="number" id="adulto-tutoria-media" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <small class="field-note">Média simples das 10 tutorias</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="adulto-seminario">Seminário <span class="weight-badge">Peso 1</span></label>
+                                    <input type="number" id="adulto-seminario" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="adulto-modulo">Módulo <span class="weight-badge">Peso 4</span></label>
+                                    <input type="number" id="adulto-modulo" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group input-full-width">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="adulto-extra">
+                                        <span>100% presença nas monitorias <span class="weight-badge">+0.5</span></span>
+                                    </label>
+                                </div>
+                            </form>
+                            <div class="result-section">
+                                <div class="result-label">Nota Final</div>
+                                <div class="result-value" id="adulto-result">0.00</div>
+                                <div class="result-status" id="adulto-status">Aguardando notas...</div>
+                            </div>
+                        </div>
+
+                        <!-- Saúde da Mulher I -->
+                        <div class="calculator-card">
+                            <div class="card-header">
+                                <h3>Saúde da Mulher I</h3>
+                                <p>Insira suas notas para calcular a média final.</p>
+                            </div>
+                            <form class="uc3-form">
+                                <div class="input-group">
+                                    <label for="mulher-pratica">Prática <span class="weight-badge">Peso 2</span></label>
+                                    <input type="number" id="mulher-pratica" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="mulher-tutoria-media">Média das Tutorias <span class="weight-badge">Peso 2.5</span></label>
+                                    <input type="number" id="mulher-tutoria-media" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <small class="field-note">Média simples das 4 tutorias</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="mulher-seminario">Seminário <span class="weight-badge">Peso 1</span></label>
+                                    <input type="number" id="mulher-seminario" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="mulher-modulo">Módulo <span class="weight-badge">Peso 4</span></label>
+                                    <input type="number" id="mulher-modulo" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="mulher-psicologia">Psicologia Médica <span class="weight-badge">Peso 0.5</span></label>
+                                    <input type="number" id="mulher-psicologia" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                            </form>
+                            <div class="result-section">
+                                <div class="result-label">Nota Final</div>
+                                <div class="result-value" id="mulher-result">0.00</div>
+                                <div class="result-status" id="mulher-status">Aguardando notas...</div>
+                            </div>
+                        </div>
+
+                        <!-- Saúde da Criança e do Adolescente -->
+                        <div class="calculator-card">
+                            <div class="card-header">
+                                <h3>Saúde da Criança e do Adolescente</h3>
+                                <p>Insira suas notas para calcular a média final.</p>
+                            </div>
+                            <form class="uc3-form">
+                                <div class="input-group">
+                                    <label for="crianca-tutoria-media">Média das Tutorias <span class="weight-badge">Peso 3</span></label>
+                                    <input type="number" id="crianca-tutoria-media" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <small class="field-note">Média simples das 3 tutorias</small>
+                                </div>
+                                <div class="input-group">
+                                    <label for="crianca-seminario">Seminário <span class="weight-badge">Peso 1</span></label>
+                                    <input type="number" id="crianca-seminario" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="crianca-modulo">Módulo <span class="weight-badge">Peso 4.5</span></label>
+                                    <input type="number" id="crianca-modulo" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="crianca-relatorio">Relatório <span class="weight-badge">Peso 1</span></label>
+                                    <input type="number" id="crianca-relatorio" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="crianca-psicologia">Psicologia Médica <span class="weight-badge">Peso 0.5</span></label>
+                                    <input type="number" id="crianca-psicologia" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                            </form>
+                            <div class="result-section">
+                                <div class="result-label">Nota Final</div>
+                                <div class="result-value" id="crianca-result">0.00</div>
+                                <div class="result-status" id="crianca-status">Aguardando notas...</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- CR Card -->
+                    <div class="calculator-card cr-card">
+                        <div class="card-header">
+                            <h3>CR (Coeficiente de Rendimento)</h3>
+                            <p>CR = (CR Atual × 5 + B.A.D. + Interação Comunitária + Saúde do Adulto + Saúde da Mulher + Saúde da Criança) / 13</p>
+                        </div>
+                        <form class="uc3-form">
+                            <div class="input-group">
+                                <label for="cr-atual">CR Atual <span class="weight-badge">×5</span></label>
+                                <input type="number" id="cr-atual" step="0.01" min="0" max="10" placeholder="0.00">
+                                <small class="field-note">Seu CR antes deste período</small>
+                            </div>
+                            <div class="input-group">
+                                <label for="cr-bad">B.A.D. <span class="weight-badge">÷13</span></label>
+                                <input type="number" id="cr-bad" step="0.01" min="0" max="10" placeholder="Automático" readonly>
+                            </div>
+                            <div class="input-group">
+                                <label for="cr-ic">Interação Comunitária <span class="weight-badge">÷13</span></label>
+                                <input type="number" id="cr-ic" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="cr-adulto">Saúde do Adulto I <span class="weight-badge">÷13</span></label>
+                                <input type="number" id="cr-adulto" step="0.01" min="0" max="10" placeholder="Automático" readonly>
+                            </div>
+                            <div class="input-group">
+                                <label for="cr-mulher">Saúde da Mulher I <span class="weight-badge">÷13</span></label>
+                                <input type="number" id="cr-mulher" step="0.01" min="0" max="10" placeholder="Automático" readonly>
+                            </div>
+                            <div class="input-group">
+                                <label for="cr-crianca">Saúde da Criança <span class="weight-badge">÷13</span></label>
+                                <input type="number" id="cr-crianca" step="0.01" min="0" max="10" placeholder="Automático" readonly>
+                            </div>
+                        </form>
+                        <div class="result-section">
+                            <div class="result-label">CR</div>
+                            <div class="result-value" id="cr-result">0.00</div>
+                            <div class="result-status" id="cr-status">Aguardando notas...</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="semester-placeholder" class="semester-content" style="display: none;">
+                    <div class="empty-state">
+                        <h3>Em breve</h3>
+                        <p>A calculadora para este semestre ainda está sendo desenvolvida.</p>
+                    </div>
+                </div>
+            </div>
+            <footer class="footer">
+                <p>&copy; 2025 Calculadora Med UFMT. Feito por: Marco Túlio Amaral e Ana Amaral.</p>
+            </footer>
+        </main>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
