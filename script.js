@@ -1,99 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // Weights configuration
-    const weights = {
-        tutoria: 2.5,
-        pratica1: 0.5,
-        pratica2: 0.5,
-        praticaHisto: 0.5,
-        apresSem: 0.7,
-        banner: 0.3,
-        modulo: 5.0, // Special case: grade is out of 50, so we normalize
-        antropologia: 1.0,
-        ic: 1.0
-    };
-
-    // DOM Elements
-    const inputs = {
-        tutoria: document.getElementById('tutoria'),
-        pratica1: document.getElementById('pratica1'),
-        pratica2: document.getElementById('pratica2'),
-        praticaHisto: document.getElementById('praticaHisto'),
-        apresSem: document.getElementById('apresSem'),
-        banner: document.getElementById('banner'),
-        modulo: document.getElementById('modulo'),
-        antropologia: document.getElementById('antropologia'),
-        ic: document.getElementById('ic')
-    };
-
-    const finalResultEl = document.getElementById('final-result');
-    const resultStatusEl = document.getElementById('result-status');
-    const navButtons = document.querySelectorAll('.nav-btn');
-    const semesterTitle = document.getElementById('semester-title');
-    const semester1Content = document.getElementById('semester-1-content');
-    const semester3Content = document.getElementById('semester-3-content');
-    const semesterPlaceholder = document.getElementById('semester-placeholder');
-
-    // Calculate Average Function
-    function calculateAverage() {
-        let totalScore = 0;
-        let allEmpty = true;
-        let totalWeight = 0;
-
-        // Calculate total weight dynamically
-        Object.values(weights).forEach(w => totalWeight += w);
-
-        // Helper to get value and apply weight
-        const getValue = (id, weight, maxScore = 10) => {
-            const val = parseFloat(inputs[id].value);
-            if (isNaN(val)) return 0;
-            allEmpty = false;
-
-            // Normalize to 0-10 scale
-            const normalizedValue = (val / maxScore) * 10;
-            // Contribution to the weighted average
-            return normalizedValue * weight;
-        };
-
-        totalScore += getValue('tutoria', weights.tutoria);
-        totalScore += getValue('pratica1', weights.pratica1);
-        totalScore += getValue('pratica2', weights.pratica2);
-        totalScore += getValue('praticaHisto', weights.praticaHisto);
-        totalScore += getValue('apresSem', weights.apresSem);
-        totalScore += getValue('banner', weights.banner);
-        totalScore += getValue('modulo', weights.modulo, 50); // Max score 50
-        totalScore += getValue('antropologia', weights.antropologia);
-        totalScore += getValue('ic', weights.ic);
-
-        // Calculate weighted average
-        // Formula: Sum(Value * Weight) / Sum(Weights)
-        const finalAverage = totalScore / totalWeight;
-
-        if (allEmpty) {
-            finalResultEl.textContent = "0.00";
-            resultStatusEl.textContent = "Aguardando notas...";
-            resultStatusEl.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
-        } else {
-            finalResultEl.textContent = finalAverage.toFixed(2);
-
-            if (finalAverage >= 7) {
-                resultStatusEl.textContent = "Aprovado!";
-                resultStatusEl.style.backgroundColor = "#27ae60"; // Green
-            } else if (finalAverage >= 5) {
-                resultStatusEl.textContent = "Exame Final";
-                resultStatusEl.style.backgroundColor = "#f39c12"; // Orange
-            } else {
-                resultStatusEl.textContent = "Reprovado";
-                resultStatusEl.style.backgroundColor = "#c0392b"; // Red
-            }
-        }
-    }
-
-    // Event Listeners for Inputs
-    Object.values(inputs).forEach(input => {
-        input.addEventListener('input', calculateAverage);
-    });
-
-    // UC3 helpers
+    // ---------- Helpers ----------
     function applyStatus(statusEl, nota) {
         if (nota >= 7) {
             statusEl.textContent = 'Aprovado!';
@@ -107,15 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function resetResult(resultEl, statusEl) {
+        resultEl.textContent = '0.00';
+        statusEl.textContent = 'Aguardando notas...';
+        statusEl.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+    }
+
     function setSubjectResult(resultId, statusId, crInputId, nota, allEmpty) {
         const resultEl = document.getElementById(resultId);
         const statusEl = document.getElementById(statusId);
         const crInput = crInputId ? document.getElementById(crInputId) : null;
 
         if (allEmpty) {
-            resultEl.textContent = '0.00';
-            statusEl.textContent = 'Aguardando notas...';
-            statusEl.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            resetResult(resultEl, statusEl);
             if (crInput) crInput.value = '';
         } else {
             resultEl.textContent = nota.toFixed(2);
@@ -123,6 +33,135 @@ document.addEventListener('DOMContentLoaded', () => {
             if (crInput) crInput.value = nota.toFixed(2);
         }
     }
+
+    // Média ponderada genérica: Σ(nota × peso) / Σ(peso)
+    function weightedAverage(fields) {
+        let score = 0;
+        let totalPeso = 0;
+        let allEmpty = true;
+        for (const [id, w] of Object.entries(fields)) {
+            const el = document.getElementById(id);
+            const v = parseFloat(el.value);
+            totalPeso += w;
+            if (!isNaN(v)) {
+                allEmpty = false;
+                score += v * w;
+            }
+        }
+        return { nota: allEmpty ? 0 : score / totalPeso, allEmpty };
+    }
+
+    // Pesos compartilhados de Introdução à Medicina (UC1 e UC2)
+    const introMedFields = {
+        anato: 1.0,
+        histo: 0.5,
+        modulo: 5,
+        seminario: 1,
+        tutoria: 2.5
+    };
+
+    // Calcula a média de uma matéria com pesos de Introdução à Medicina
+    function calculateIntroMedSubject(prefix, resultId, statusId, crInputId, onUpdate) {
+        const fields = {};
+        for (const [suffix, w] of Object.entries(introMedFields)) {
+            fields[`${prefix}-${suffix}`] = w;
+        }
+        const { nota, allEmpty } = weightedAverage(fields);
+        setSubjectResult(resultId, statusId, crInputId, nota, allEmpty);
+        onUpdate();
+    }
+
+    // ==========================================================
+    // UC1 — 1º Semestre
+    // CR = (Locomotor + Neuro + IC) / 3
+    // ==========================================================
+    function calculateLocomotor() {
+        calculateIntroMedSubject('loco', 'loco-result', 'loco-status', 'uc1-cr-loco', calculateCR_UC1);
+    }
+    function calculateNeuro() {
+        calculateIntroMedSubject('neuro', 'neuro-result', 'neuro-status', 'uc1-cr-neuro', calculateCR_UC1);
+    }
+
+    function calculateCR_UC1() {
+        const loco = parseFloat(document.getElementById('uc1-cr-loco').value);
+        const neuro = parseFloat(document.getElementById('uc1-cr-neuro').value);
+        const ic = parseFloat(document.getElementById('uc1-cr-ic').value);
+
+        const resultEl = document.getElementById('uc1-cr-result');
+        const statusEl = document.getElementById('uc1-cr-status');
+
+        const allEmpty = [loco, neuro, ic].every(v => isNaN(v));
+        if (allEmpty) {
+            resetResult(resultEl, statusEl);
+            return;
+        }
+
+        const cr = (
+            (isNaN(loco) ? 0 : loco) +
+            (isNaN(neuro) ? 0 : neuro) +
+            (isNaN(ic) ? 0 : ic)
+        ) / 3;
+
+        resultEl.textContent = cr.toFixed(2);
+        applyStatus(statusEl, cr);
+    }
+
+    ['loco-anato', 'loco-histo', 'loco-modulo', 'loco-seminario', 'loco-tutoria'].forEach(id =>
+        document.getElementById(id).addEventListener('input', calculateLocomotor));
+    ['neuro-anato', 'neuro-histo', 'neuro-modulo', 'neuro-seminario', 'neuro-tutoria'].forEach(id =>
+        document.getElementById(id).addEventListener('input', calculateNeuro));
+    document.getElementById('uc1-cr-ic').addEventListener('input', calculateCR_UC1);
+
+    // ==========================================================
+    // UC2 — 2º Semestre
+    // CR = (CR_Atual×2 + IC + Antro + Cardio + Digest) / 5
+    // ==========================================================
+    function calculateCardio() {
+        calculateIntroMedSubject('cardio', 'cardio-result', 'cardio-status', 'uc2-cr-cardio', calculateCR_UC2);
+    }
+    function calculateDigest() {
+        calculateIntroMedSubject('digest', 'digest-result', 'digest-status', 'uc2-cr-digest', calculateCR_UC2);
+    }
+
+    function calculateCR_UC2() {
+        const crAtual = parseFloat(document.getElementById('uc2-cr-atual').value);
+        const ic = parseFloat(document.getElementById('uc2-cr-ic').value);
+        const antro = parseFloat(document.getElementById('uc2-cr-antro').value);
+        const cardio = parseFloat(document.getElementById('uc2-cr-cardio').value);
+        const digest = parseFloat(document.getElementById('uc2-cr-digest').value);
+
+        const resultEl = document.getElementById('uc2-cr-result');
+        const statusEl = document.getElementById('uc2-cr-status');
+
+        const allEmpty = [crAtual, ic, antro, cardio, digest].every(v => isNaN(v));
+        if (allEmpty) {
+            resetResult(resultEl, statusEl);
+            return;
+        }
+
+        const cr = (
+            (isNaN(crAtual) ? 0 : crAtual * 2) +
+            (isNaN(ic) ? 0 : ic) +
+            (isNaN(antro) ? 0 : antro) +
+            (isNaN(cardio) ? 0 : cardio) +
+            (isNaN(digest) ? 0 : digest)
+        ) / 5;
+
+        resultEl.textContent = cr.toFixed(2);
+        applyStatus(statusEl, cr);
+    }
+
+    ['cardio-anato', 'cardio-histo', 'cardio-modulo', 'cardio-seminario', 'cardio-tutoria'].forEach(id =>
+        document.getElementById(id).addEventListener('input', calculateCardio));
+    ['digest-anato', 'digest-histo', 'digest-modulo', 'digest-seminario', 'digest-tutoria'].forEach(id =>
+        document.getElementById(id).addEventListener('input', calculateDigest));
+    ['uc2-cr-atual', 'uc2-cr-ic', 'uc2-cr-antro'].forEach(id =>
+        document.getElementById(id).addEventListener('input', calculateCR_UC2));
+
+    // ==========================================================
+    // UC3 — 3º Semestre
+    // CR = (CR_Atual×5 + BAD + IC + Adulto + Mulher + Criança) / 13
+    // ==========================================================
 
     // B.A.D.: pesos somam 1.0, fórmula = Σ(peso × nota)
     function calculateBAD() {
@@ -140,11 +179,10 @@ document.addEventListener('DOMContentLoaded', () => {
             if (!isNaN(v)) { allEmpty = false; score += v * w; }
         }
         setSubjectResult('bad-result', 'bad-status', 'cr-bad', score, allEmpty);
-        calculateCR();
+        calculateCR_UC3();
     }
 
     // Saúde do Adulto I: pesos base somam 10; extra opcional +0.5
-    // nota = Σ(nota × peso) / total_peso
     function calculateAdulto() {
         const fields = {
             'adulto-osce': 1.25,
@@ -167,51 +205,34 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         const nota = allEmpty ? 0 : score / totalPeso;
         setSubjectResult('adulto-result', 'adulto-status', 'cr-adulto', nota, allEmpty);
-        calculateCR();
+        calculateCR_UC3();
     }
 
-    // Saúde da Mulher I: pesos somam 10
     function calculateMulher() {
-        const fields = {
+        const { nota, allEmpty } = weightedAverage({
             'mulher-pratica': 2,
             'mulher-tutoria-media': 2.5,
             'mulher-seminario': 1,
             'mulher-modulo': 4,
             'mulher-psicologia': 0.5
-        };
-        let score = 0;
-        let allEmpty = true;
-        for (const [id, w] of Object.entries(fields)) {
-            const v = parseFloat(document.getElementById(id).value);
-            if (!isNaN(v)) { allEmpty = false; score += v * w; }
-        }
-        const nota = allEmpty ? 0 : score / 10;
+        });
         setSubjectResult('mulher-result', 'mulher-status', 'cr-mulher', nota, allEmpty);
-        calculateCR();
+        calculateCR_UC3();
     }
 
-    // Saúde da Criança e do Adolescente: pesos somam 10
     function calculateCrianca() {
-        const fields = {
+        const { nota, allEmpty } = weightedAverage({
             'crianca-tutoria-media': 3,
             'crianca-seminario': 1,
             'crianca-modulo': 4.5,
             'crianca-relatorio': 1,
             'crianca-psicologia': 0.5
-        };
-        let score = 0;
-        let allEmpty = true;
-        for (const [id, w] of Object.entries(fields)) {
-            const v = parseFloat(document.getElementById(id).value);
-            if (!isNaN(v)) { allEmpty = false; score += v * w; }
-        }
-        const nota = allEmpty ? 0 : score / 10;
+        });
         setSubjectResult('crianca-result', 'crianca-status', 'cr-crianca', nota, allEmpty);
-        calculateCR();
+        calculateCR_UC3();
     }
 
-    // CR = (CR_Atual × 5 + BAD + IC + Adulto + Mulher + Criança) / 13
-    function calculateCR() {
+    function calculateCR_UC3() {
         const crAtual = parseFloat(document.getElementById('cr-atual').value);
         const bad = parseFloat(document.getElementById('cr-bad').value);
         const ic = parseFloat(document.getElementById('cr-ic').value);
@@ -224,9 +245,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const allEmpty = [crAtual, bad, ic, adulto, mulher, crianca].every(v => isNaN(v));
         if (allEmpty) {
-            resultEl.textContent = '0.00';
-            statusEl.textContent = 'Aguardando notas...';
-            statusEl.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+            resetResult(resultEl, statusEl);
             return;
         }
 
@@ -243,41 +262,49 @@ document.addEventListener('DOMContentLoaded', () => {
         applyStatus(statusEl, cr);
     }
 
-    // UC3 Event Listeners
     ['bad-parasitologia', 'bad-virologia', 'bad-imunologia', 'bad-patologia', 'bad-microbiologia'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateBAD));
-
     ['adulto-osce', 'adulto-praticas-he', 'adulto-tutoria-media', 'adulto-seminario', 'adulto-modulo'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateAdulto));
     document.getElementById('adulto-extra').addEventListener('change', calculateAdulto);
-
     ['mulher-pratica', 'mulher-tutoria-media', 'mulher-seminario', 'mulher-modulo', 'mulher-psicologia'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateMulher));
-
     ['crianca-tutoria-media', 'crianca-seminario', 'crianca-modulo', 'crianca-relatorio', 'crianca-psicologia'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateCrianca));
-
     ['cr-atual', 'cr-ic'].forEach(id =>
-        document.getElementById(id).addEventListener('input', calculateCR));
+        document.getElementById(id).addEventListener('input', calculateCR_UC3));
 
-    // Navigation Logic
+    // ==========================================================
+    // Navegação
+    // ==========================================================
+    const navButtons = document.querySelectorAll('.nav-btn');
+    const semesterTitle = document.getElementById('semester-title');
+    const semester1Content = document.getElementById('semester-1-content');
+    const semester2Content = document.getElementById('semester-2-content');
+    const semester3Content = document.getElementById('semester-3-content');
+    const semesterPlaceholder = document.getElementById('semester-placeholder');
+
     navButtons.forEach(btn => {
         btn.addEventListener('click', () => {
-            // Remove active class from all
             navButtons.forEach(b => b.classList.remove('active'));
-            // Add to clicked
             btn.classList.add('active');
 
             const semester = btn.dataset.semester;
             semesterTitle.textContent = `${semester}º Semestre`;
 
             semester1Content.style.display = 'none';
+            semester2Content.style.display = 'none';
             semester3Content.style.display = 'none';
             semesterPlaceholder.style.display = 'none';
 
             if (semester === '1') {
                 semester1Content.style.display = 'block';
-                calculateAverage();
+                calculateLocomotor();
+                calculateNeuro();
+            } else if (semester === '2') {
+                semester2Content.style.display = 'block';
+                calculateCardio();
+                calculateDigest();
             } else if (semester === '3') {
                 semester3Content.style.display = 'block';
                 calculateBAD();
@@ -289,4 +316,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     });
+
+    // Inicialização
+    calculateLocomotor();
+    calculateNeuro();
 });
