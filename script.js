@@ -143,12 +143,15 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
+        const cardioV = isNaN(cardio) ? 0 : cardio;
+        const digestV = isNaN(digest) ? 0 : digest;
+        const mediaIntroMed = (cardioV + digestV) / 2;
+
         const cr = (
             (isNaN(crAtual) ? 0 : crAtual * 2) +
             (isNaN(ic) ? 0 : ic) +
             (isNaN(antro) ? 0 : antro) +
-            (isNaN(cardio) ? 0 : cardio) +
-            (isNaN(digest) ? 0 : digest)
+            mediaIntroMed
         ) / 5;
 
         resultEl.textContent = cr.toFixed(2);
@@ -164,45 +167,45 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================================
     // UC3 — 3º Semestre
-    // CR = (CR_Atual×5 + BAD + IC + Adulto + Mulher + Criança) / 13
+    // CR = (CR_Atual×5 + BAD + IC + Saúde e Sociedade + Adulto + Mulher + Criança) / 11
     // ==========================================================
 
-    // B.A.D.: pesos somam 1.0, fórmula = Σ(peso × nota)
+    // B.A.D.: pesos somam 10 — média ponderada padrão
     function calculateBAD() {
-        const fields = {
-            'bad-parasitologia': 0.225,
-            'bad-virologia': 0.1,
-            'bad-imunologia': 0.225,
-            'bad-patologia': 0.225,
-            'bad-microbiologia': 0.225
-        };
-        let score = 0;
-        let allEmpty = true;
-        for (const [id, w] of Object.entries(fields)) {
-            const v = parseFloat(document.getElementById(id).value);
-            if (!isNaN(v)) { allEmpty = false; score += v * w; }
-        }
-        setSubjectResult('bad-result', 'bad-status', 'cr-bad', score, allEmpty);
+        const { nota, allEmpty } = weightedAverage({
+            'bad-virologia': 1,
+            'bad-parasitologia': 2.25,
+            'bad-imunologia': 2.25,
+            'bad-patologia': 2.25,
+            'bad-microbiologia': 2.25
+        });
+        setSubjectResult('bad-result', 'bad-status', 'cr-bad', nota, allEmpty);
         calculateCR_UC3();
     }
 
-    // Saúde do Adulto I: pesos base somam 10; extra opcional +0.5 (100% monitorias)
+    // Saúde do Adulto I — pesos somam 10
+    // Prática (peso 2.5) = ((OSCE + bônus monitorias) + Hospital) / 2
     function calculateAdulto() {
-        const { nota: baseNota, allEmpty: baseEmpty } = weightedAverage({
-            'adulto-osce': 1.25,
-            'adulto-praticas-he': 1.25,
-            'adulto-tutoria-media': 2.5,
-            'adulto-seminario': 1,
-            'adulto-modulo': { weight: 4, max: 50 }
-        });
-        const extraChecked = document.getElementById('adulto-extra').checked;
-        let allEmpty = baseEmpty && !extraChecked;
-        let nota = baseNota;
-        if (extraChecked) {
-            // Reaplica a soma com o bônus: score_base = baseNota * 10
-            const scoreBase = baseEmpty ? 0 : baseNota * 10;
-            nota = (scoreBase + 10 * 0.5) / 10.5;
-        }
+        const osce = parseFloat(document.getElementById('adulto-osce').value);
+        const hosp = parseFloat(document.getElementById('adulto-praticas-he').value);
+        const tutoria = parseFloat(document.getElementById('adulto-tutoria-media').value);
+        const seminario = parseFloat(document.getElementById('adulto-seminario').value);
+        const moduloAcertos = parseFloat(document.getElementById('adulto-modulo').value);
+        const extra = document.getElementById('adulto-extra').checked;
+
+        const allEmpty = [osce, hosp, tutoria, seminario, moduloAcertos].every(v => isNaN(v)) && !extra;
+
+        const osceComBonus = (isNaN(osce) ? 0 : osce) + (extra ? 0.5 : 0);
+        const hospV = isNaN(hosp) ? 0 : hosp;
+        const pratica = (osceComBonus + hospV) / 2;
+
+        const tutoriaV = isNaN(tutoria) ? 0 : tutoria;
+        const seminarioV = isNaN(seminario) ? 0 : seminario;
+        const moduloNota = isNaN(moduloAcertos) ? 0 : (moduloAcertos / 50) * 10;
+
+        // Σ(nota × peso) / 10
+        const nota = (pratica * 2.5 + tutoriaV * 2.5 + seminarioV * 1 + moduloNota * 4) / 10;
+
         setSubjectResult('adulto-result', 'adulto-status', 'cr-adulto', nota, allEmpty);
         calculateCR_UC3();
     }
@@ -235,6 +238,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const crAtual = parseFloat(document.getElementById('cr-atual').value);
         const bad = parseFloat(document.getElementById('cr-bad').value);
         const ic = parseFloat(document.getElementById('cr-ic').value);
+        const sesoc = parseFloat(document.getElementById('cr-sesoc').value);
         const adulto = parseFloat(document.getElementById('cr-adulto').value);
         const mulher = parseFloat(document.getElementById('cr-mulher').value);
         const crianca = parseFloat(document.getElementById('cr-crianca').value);
@@ -242,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const resultEl = document.getElementById('cr-result');
         const statusEl = document.getElementById('cr-status');
 
-        const allEmpty = [crAtual, bad, ic, adulto, mulher, crianca].every(v => isNaN(v));
+        const allEmpty = [crAtual, bad, ic, sesoc, adulto, mulher, crianca].every(v => isNaN(v));
         if (allEmpty) {
             resetResult(resultEl, statusEl);
             return;
@@ -252,10 +256,11 @@ document.addEventListener('DOMContentLoaded', () => {
             (isNaN(crAtual) ? 0 : crAtual * 5) +
             (isNaN(bad) ? 0 : bad) +
             (isNaN(ic) ? 0 : ic) +
+            (isNaN(sesoc) ? 0 : sesoc) +
             (isNaN(adulto) ? 0 : adulto) +
             (isNaN(mulher) ? 0 : mulher) +
             (isNaN(crianca) ? 0 : crianca)
-        ) / 13;
+        ) / 11;
 
         resultEl.textContent = cr.toFixed(2);
         applyStatus(statusEl, cr);
@@ -270,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(id).addEventListener('input', calculateMulher));
     ['crianca-tutoria-media', 'crianca-seminario', 'crianca-modulo', 'crianca-relatorio', 'crianca-psicologia'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateCrianca));
-    ['cr-atual', 'cr-ic'].forEach(id =>
+    ['cr-atual', 'cr-ic', 'cr-sesoc'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateCR_UC3));
 
     // ==========================================================

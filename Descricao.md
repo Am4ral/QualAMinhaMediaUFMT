@@ -44,20 +44,19 @@ Introdução a Medicina 2:
 
 
 CR (Média Geral)
-CR = ((CR Atual x 2) + IC + Antro + Cardiorespiratório + Disgestório & Urogenital)/ 5
+CR = ((CR Atual x 2) + IC + Antro + ((Cardiorespiratório + Disgestório & Urogenital)/2))/ 5
 
 
 Terceiro Semeste (UC3):
 Saúde do Adulto:
-  -Prática: 2,5 peso 
-    -1,25 OSCE
-    -1,25 Média simples de práticas no Hospital de Ensino
+  -Prática: 2,5 peso (((OSCE + 0.5 presença em todas as monitorias) + Hospital)/2)
+    -OSCE. EXTRA (0,5 Presença em Todas as monitorias)
+    -Média simples de práticas no Hospital de Ensino
   -Tutoria: 2,5 peso
     -10 tutorias média simples
   -Seminário: 1 peso
   -Módulo: 4 peso
-  -Extra: 0,5 peso
-    -100% presença monitorias
+  
 
 Saúde da Mulher:
   -Prática: 2 peso 
@@ -67,7 +66,7 @@ Saúde da Mulher:
   -Módulo: 4 peso
   -Psicologia Médica: 0,5 peso
 
-Saúde da Criança e do Adolescente:
+Saúde da Criança:
   -Tutoria: 3 peso
     -3 tutorias média simples
   -Seminário: 1 peso
@@ -75,13 +74,20 @@ Saúde da Criança e do Adolescente:
   -Relatório: 1 peso
   -Psicologia Médica: 0,5 peso
 
+Bases de Agressão e Defesa (BAD):
+  -Virologia: 1 peso
+  -Parasitologia: 2,25 peso
+  -Imunologia: 2.25 peso
+  -Patologia: 2.25 peso
+  -Microbiologia: 2.25 peso
+
 
 CR (Média Geral)
-CR = ((CR Atual x 5) + Base Agreção Defesa + Interação Comunitária + Saúde do Adulto + Saúde da Mulher + Saúde da Criança e do Adolescente)/13
+CR = ((CR Atual x 5) + Bases de Agressão e Defesa + Interação Comunitária + Saúde e Sociedade + Saúde do Adulto + Saúde da Mulher + Saúde da Criança)/11
 
 
 
-Obs: Interação comunitária não precisa ser calculada e o usuário ira colocar ela direto na caixa de cálculo do CR
+Obs: Interação comunitária, Saúde e Sociedade não precisam ser calculadas e o usuário ira colocar elas direto na caixa de cálculo do CR
 
 Obs 2: O sistema de notas é de 0 - 10.
 
