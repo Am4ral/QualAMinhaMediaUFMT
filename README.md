@@ -18,13 +18,7 @@ Calculadora web de médias e CR (Coeficiente de Rendimento) para estudantes de M
 
 Por ser um site estático puro (HTML + CSS + JS), basta abrir `ufmt-med-calc/index.html` no navegador.
 
-Opcionalmente, rode um servidor local:
-
-```bash
-cd ufmt-med-calc
-python3 -m http.server 8000
-# acesse http://localhost:8000
-```
+Ou então acessar a página: [Cliqe Aqui](https://am4ral.github.io/QualAMinhaMediaUFMT/)
 
 ## Estrutura
 
