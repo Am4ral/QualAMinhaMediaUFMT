@@ -3,20 +3,22 @@ Interação Comunitária:
   - Nota única
 Introdução a Medicina:
   Locomotor:
-    - Prática de Anato: 1,0 peso
+    - Prática de Anato 1: 0,5 peso
+    - Prática de Anato 2: 0,5 peso
     - Histologia: 0,5 peso
     - Módulo: 5 peso
     - Seminário 1 peso
     - Tutoria: 2,5 peso
   Neuro:
-    - Prática de Anato: 1,0 peso
+    - Prática de Anato 1: 0,5 peso
+    - Prática de Anato 2: 0,5 peso
     - Histologia: 0,5 peso
     - Módulo: 5 peso
     - Seminário 1 peso
     - Tutoria: 2,5 peso
 
 CR (Média Geral)
-CR = (Locomotor + Neuro + Interação Comunitária)/3
+CR = (((Locomotor + Neuro)/2) + Interação Comunitária)/2
 
 
 Segundo Semestre (UC2):
@@ -28,13 +30,15 @@ Introdução a Medicina 2:
   Cardiorespiratório:
     - Módulo: 5 peso
     - Tutoria: 2,5 peso
-    - Pratica Anato: 1 peso
+    - Prática de Anato 1: 0,5 peso
+    - Prática de Anato 2: 0,5 peso
     - Histologia: 0,5 peso
     - Seminário: 1 peso
   Disgestório & Urogenital:
     - Módulo: 5 peso
     - Tutoria: 2,5 peso
-    - Pratica Anato: 1 peso
+    - Prática de Anato 1: 0,5 peso
+    - Prática de Anato 2: 0,5 peso
     - Histologia: 0,5 peso
     - Seminário: 1 peso
 
@@ -80,3 +84,5 @@ CR = ((CR Atual x 5) + Base Agreção Defesa + Interação Comunitária + Saúde
 Obs: Interação comunitária não precisa ser calculada e o usuário ira colocar ela direto na caixa de cálculo do CR
 
 Obs 2: O sistema de notas é de 0 - 10.
+
+Obs 3: As provas de Módulo tem 50 questões, o usuário vai informar o núemro de acertos e o código deve calcular a nota. Coloque na descrição do campot para informar o número de acertos.

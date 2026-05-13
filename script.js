@@ -34,28 +34,33 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // Média ponderada genérica: Σ(nota × peso) / Σ(peso)
+    // Média ponderada genérica: Σ(nota_normalizada × peso) / Σ(peso)
+    // Aceita peso simples (número) ou objeto { weight, max } — quando max != 10, normaliza para escala 0-10.
     function weightedAverage(fields) {
         let score = 0;
         let totalPeso = 0;
         let allEmpty = true;
-        for (const [id, w] of Object.entries(fields)) {
-            const el = document.getElementById(id);
-            const v = parseFloat(el.value);
-            totalPeso += w;
+        for (const [id, def] of Object.entries(fields)) {
+            const weight = typeof def === 'number' ? def : def.weight;
+            const max = typeof def === 'number' ? 10 : (def.max ?? 10);
+            const v = parseFloat(document.getElementById(id).value);
+            totalPeso += weight;
             if (!isNaN(v)) {
                 allEmpty = false;
-                score += v * w;
+                const normalized = (v / max) * 10;
+                score += normalized * weight;
             }
         }
         return { nota: allEmpty ? 0 : score / totalPeso, allEmpty };
     }
 
     // Pesos compartilhados de Introdução à Medicina (UC1 e UC2)
+    // Módulo: prova de 50 questões — o aluno informa acertos e normalizamos para 0-10
     const introMedFields = {
-        anato: 1.0,
+        anato1: 0.5,
+        anato2: 0.5,
         histo: 0.5,
-        modulo: 5,
+        modulo: { weight: 5, max: 50 },
         seminario: 1,
         tutoria: 2.5
     };
@@ -96,19 +101,18 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        const cr = (
-            (isNaN(loco) ? 0 : loco) +
-            (isNaN(neuro) ? 0 : neuro) +
-            (isNaN(ic) ? 0 : ic)
-        ) / 3;
+        const locoV = isNaN(loco) ? 0 : loco;
+        const neuroV = isNaN(neuro) ? 0 : neuro;
+        const icV = isNaN(ic) ? 0 : ic;
+        const cr = ((locoV + neuroV) / 2 + icV) / 2;
 
         resultEl.textContent = cr.toFixed(2);
         applyStatus(statusEl, cr);
     }
 
-    ['loco-anato', 'loco-histo', 'loco-modulo', 'loco-seminario', 'loco-tutoria'].forEach(id =>
+    ['loco-anato1', 'loco-anato2', 'loco-histo', 'loco-modulo', 'loco-seminario', 'loco-tutoria'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateLocomotor));
-    ['neuro-anato', 'neuro-histo', 'neuro-modulo', 'neuro-seminario', 'neuro-tutoria'].forEach(id =>
+    ['neuro-anato1', 'neuro-anato2', 'neuro-histo', 'neuro-modulo', 'neuro-seminario', 'neuro-tutoria'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateNeuro));
     document.getElementById('uc1-cr-ic').addEventListener('input', calculateCR_UC1);
 
@@ -151,9 +155,9 @@ document.addEventListener('DOMContentLoaded', () => {
         applyStatus(statusEl, cr);
     }
 
-    ['cardio-anato', 'cardio-histo', 'cardio-modulo', 'cardio-seminario', 'cardio-tutoria'].forEach(id =>
+    ['cardio-anato1', 'cardio-anato2', 'cardio-histo', 'cardio-modulo', 'cardio-seminario', 'cardio-tutoria'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateCardio));
-    ['digest-anato', 'digest-histo', 'digest-modulo', 'digest-seminario', 'digest-tutoria'].forEach(id =>
+    ['digest-anato1', 'digest-anato2', 'digest-histo', 'digest-modulo', 'digest-seminario', 'digest-tutoria'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateDigest));
     ['uc2-cr-atual', 'uc2-cr-ic', 'uc2-cr-antro'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateCR_UC2));
@@ -182,28 +186,23 @@ document.addEventListener('DOMContentLoaded', () => {
         calculateCR_UC3();
     }
 
-    // Saúde do Adulto I: pesos base somam 10; extra opcional +0.5
+    // Saúde do Adulto I: pesos base somam 10; extra opcional +0.5 (100% monitorias)
     function calculateAdulto() {
-        const fields = {
+        const { nota: baseNota, allEmpty: baseEmpty } = weightedAverage({
             'adulto-osce': 1.25,
             'adulto-praticas-he': 1.25,
             'adulto-tutoria-media': 2.5,
             'adulto-seminario': 1,
-            'adulto-modulo': 4
-        };
-        let score = 0;
-        let totalPeso = 10;
-        let allEmpty = true;
-        for (const [id, w] of Object.entries(fields)) {
-            const v = parseFloat(document.getElementById(id).value);
-            if (!isNaN(v)) { allEmpty = false; score += v * w; }
+            'adulto-modulo': { weight: 4, max: 50 }
+        });
+        const extraChecked = document.getElementById('adulto-extra').checked;
+        let allEmpty = baseEmpty && !extraChecked;
+        let nota = baseNota;
+        if (extraChecked) {
+            // Reaplica a soma com o bônus: score_base = baseNota * 10
+            const scoreBase = baseEmpty ? 0 : baseNota * 10;
+            nota = (scoreBase + 10 * 0.5) / 10.5;
         }
-        if (document.getElementById('adulto-extra').checked) {
-            allEmpty = false;
-            score += 10 * 0.5;
-            totalPeso += 0.5;
-        }
-        const nota = allEmpty ? 0 : score / totalPeso;
         setSubjectResult('adulto-result', 'adulto-status', 'cr-adulto', nota, allEmpty);
         calculateCR_UC3();
     }
@@ -213,7 +212,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'mulher-pratica': 2,
             'mulher-tutoria-media': 2.5,
             'mulher-seminario': 1,
-            'mulher-modulo': 4,
+            'mulher-modulo': { weight: 4, max: 50 },
             'mulher-psicologia': 0.5
         });
         setSubjectResult('mulher-result', 'mulher-status', 'cr-mulher', nota, allEmpty);
@@ -224,7 +223,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const { nota, allEmpty } = weightedAverage({
             'crianca-tutoria-media': 3,
             'crianca-seminario': 1,
-            'crianca-modulo': 4.5,
+            'crianca-modulo': { weight: 4.5, max: 50 },
             'crianca-relatorio': 1,
             'crianca-psicologia': 0.5
         });

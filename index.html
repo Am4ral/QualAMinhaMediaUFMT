@@ -56,8 +56,12 @@
                             </div>
                             <form class="uc-form">
                                 <div class="input-group">
-                                    <label for="loco-anato">Prática de Anato <span class="weight-badge">Peso 1.0</span></label>
-                                    <input type="number" id="loco-anato" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <label for="loco-anato1">Prática de Anato 1 <span class="weight-badge">Peso 0.5</span></label>
+                                    <input type="number" id="loco-anato1" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="loco-anato2">Prática de Anato 2 <span class="weight-badge">Peso 0.5</span></label>
+                                    <input type="number" id="loco-anato2" step="0.01" min="0" max="10" placeholder="0.00">
                                 </div>
                                 <div class="input-group">
                                     <label for="loco-histo">Histologia <span class="weight-badge">Peso 0.5</span></label>
@@ -65,7 +69,8 @@
                                 </div>
                                 <div class="input-group">
                                     <label for="loco-modulo">Módulo <span class="weight-badge">Peso 5</span></label>
-                                    <input type="number" id="loco-modulo" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <input type="number" id="loco-modulo" step="1" min="0" max="50" placeholder="0">
+                                    <small class="field-note">Informe o número de acertos (0–50)</small>
                                 </div>
                                 <div class="input-group">
                                     <label for="loco-seminario">Seminário <span class="weight-badge">Peso 1</span></label>
@@ -91,8 +96,12 @@
                             </div>
                             <form class="uc-form">
                                 <div class="input-group">
-                                    <label for="neuro-anato">Prática de Anato <span class="weight-badge">Peso 1.0</span></label>
-                                    <input type="number" id="neuro-anato" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <label for="neuro-anato1">Prática de Anato 1 <span class="weight-badge">Peso 0.5</span></label>
+                                    <input type="number" id="neuro-anato1" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="neuro-anato2">Prática de Anato 2 <span class="weight-badge">Peso 0.5</span></label>
+                                    <input type="number" id="neuro-anato2" step="0.01" min="0" max="10" placeholder="0.00">
                                 </div>
                                 <div class="input-group">
                                     <label for="neuro-histo">Histologia <span class="weight-badge">Peso 0.5</span></label>
@@ -100,7 +109,8 @@
                                 </div>
                                 <div class="input-group">
                                     <label for="neuro-modulo">Módulo <span class="weight-badge">Peso 5</span></label>
-                                    <input type="number" id="neuro-modulo" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <input type="number" id="neuro-modulo" step="1" min="0" max="50" placeholder="0">
+                                    <small class="field-note">Informe o número de acertos (0–50)</small>
                                 </div>
                                 <div class="input-group">
                                     <label for="neuro-seminario">Seminário <span class="weight-badge">Peso 1</span></label>
@@ -123,19 +133,19 @@
                     <div class="calculator-card cr-card">
                         <div class="card-header">
                             <h3>CR (Coeficiente de Rendimento)</h3>
-                            <p>CR = (Locomotor + Neuro + Interação Comunitária) / 3</p>
+                            <p>CR = ((Locomotor + Neuro) / 2 + Interação Comunitária) / 2</p>
                         </div>
                         <form class="uc-form">
                             <div class="input-group">
-                                <label for="uc1-cr-loco">Locomotor <span class="weight-badge">÷3</span></label>
+                                <label for="uc1-cr-loco">Locomotor</label>
                                 <input type="number" id="uc1-cr-loco" step="0.01" min="0" max="10" placeholder="Automático" readonly>
                             </div>
                             <div class="input-group">
-                                <label for="uc1-cr-neuro">Neuro <span class="weight-badge">÷3</span></label>
+                                <label for="uc1-cr-neuro">Neuro</label>
                                 <input type="number" id="uc1-cr-neuro" step="0.01" min="0" max="10" placeholder="Automático" readonly>
                             </div>
                             <div class="input-group">
-                                <label for="uc1-cr-ic">Interação Comunitária <span class="weight-badge">÷3</span></label>
+                                <label for="uc1-cr-ic">Interação Comunitária</label>
                                 <input type="number" id="uc1-cr-ic" step="0.01" min="0" max="10" placeholder="0.00">
                             </div>
                         </form>
@@ -158,8 +168,12 @@
                             </div>
                             <form class="uc-form">
                                 <div class="input-group">
-                                    <label for="cardio-anato">Prática de Anato <span class="weight-badge">Peso 1.0</span></label>
-                                    <input type="number" id="cardio-anato" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <label for="cardio-anato1">Prática de Anato 1 <span class="weight-badge">Peso 0.5</span></label>
+                                    <input type="number" id="cardio-anato1" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="cardio-anato2">Prática de Anato 2 <span class="weight-badge">Peso 0.5</span></label>
+                                    <input type="number" id="cardio-anato2" step="0.01" min="0" max="10" placeholder="0.00">
                                 </div>
                                 <div class="input-group">
                                     <label for="cardio-histo">Histologia <span class="weight-badge">Peso 0.5</span></label>
@@ -167,7 +181,8 @@
                                 </div>
                                 <div class="input-group">
                                     <label for="cardio-modulo">Módulo <span class="weight-badge">Peso 5</span></label>
-                                    <input type="number" id="cardio-modulo" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <input type="number" id="cardio-modulo" step="1" min="0" max="50" placeholder="0">
+                                    <small class="field-note">Informe o número de acertos (0–50)</small>
                                 </div>
                                 <div class="input-group">
                                     <label for="cardio-seminario">Seminário <span class="weight-badge">Peso 1</span></label>
@@ -193,8 +208,12 @@
                             </div>
                             <form class="uc-form">
                                 <div class="input-group">
-                                    <label for="digest-anato">Prática de Anato <span class="weight-badge">Peso 1.0</span></label>
-                                    <input type="number" id="digest-anato" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <label for="digest-anato1">Prática de Anato 1 <span class="weight-badge">Peso 0.5</span></label>
+                                    <input type="number" id="digest-anato1" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="digest-anato2">Prática de Anato 2 <span class="weight-badge">Peso 0.5</span></label>
+                                    <input type="number" id="digest-anato2" step="0.01" min="0" max="10" placeholder="0.00">
                                 </div>
                                 <div class="input-group">
                                     <label for="digest-histo">Histologia <span class="weight-badge">Peso 0.5</span></label>
@@ -202,7 +221,8 @@
                                 </div>
                                 <div class="input-group">
                                     <label for="digest-modulo">Módulo <span class="weight-badge">Peso 5</span></label>
-                                    <input type="number" id="digest-modulo" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <input type="number" id="digest-modulo" step="1" min="0" max="50" placeholder="0">
+                                    <small class="field-note">Informe o número de acertos (0–50)</small>
                                 </div>
                                 <div class="input-group">
                                     <label for="digest-seminario">Seminário <span class="weight-badge">Peso 1</span></label>
@@ -323,7 +343,8 @@
                                 </div>
                                 <div class="input-group">
                                     <label for="adulto-modulo">Módulo <span class="weight-badge">Peso 4</span></label>
-                                    <input type="number" id="adulto-modulo" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <input type="number" id="adulto-modulo" step="1" min="0" max="50" placeholder="0">
+                                    <small class="field-note">Informe o número de acertos (0–50)</small>
                                 </div>
                                 <div class="input-group input-full-width">
                                     <label class="checkbox-label">
@@ -361,7 +382,8 @@
                                 </div>
                                 <div class="input-group">
                                     <label for="mulher-modulo">Módulo <span class="weight-badge">Peso 4</span></label>
-                                    <input type="number" id="mulher-modulo" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <input type="number" id="mulher-modulo" step="1" min="0" max="50" placeholder="0">
+                                    <small class="field-note">Informe o número de acertos (0–50)</small>
                                 </div>
                                 <div class="input-group">
                                     <label for="mulher-psicologia">Psicologia Médica <span class="weight-badge">Peso 0.5</span></label>
@@ -393,7 +415,8 @@
                                 </div>
                                 <div class="input-group">
                                     <label for="crianca-modulo">Módulo <span class="weight-badge">Peso 4.5</span></label>
-                                    <input type="number" id="crianca-modulo" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <input type="number" id="crianca-modulo" step="1" min="0" max="50" placeholder="0">
+                                    <small class="field-note">Informe o número de acertos (0–50)</small>
                                 </div>
                                 <div class="input-group">
                                     <label for="crianca-relatorio">Relatório <span class="weight-badge">Peso 1</span></label>
