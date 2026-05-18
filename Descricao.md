@@ -92,3 +92,5 @@ Obs: Interação comunitária, Saúde e Sociedade não precisam ser calculadas e
 Obs 2: O sistema de notas é de 0 - 10.
 
 Obs 3: As provas de Módulo tem 50 questões, o usuário vai informar o núemro de acertos e o código deve calcular a nota. Coloque na descrição do campot para informar o número de acertos.
+
+Obs 4: As provas de Módulo do Terceiro Semestre (UC3) em específico tem 20 questões
