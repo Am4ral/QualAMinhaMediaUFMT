@@ -48,6 +48,7 @@ CR = ((CR Atual x 2) + IC + Antro + ((Cardiorespiratório + Disgestório & Uroge
 
 
 Terceiro Semeste (UC3):
+
 Saúde do Adulto:
   -Prática: 2,5 peso (((OSCE + 0.5 presença em todas as monitorias) + Hospital)/2)
     -OSCE. EXTRA (0,5 Presença em Todas as monitorias)
@@ -56,7 +57,6 @@ Saúde do Adulto:
     -10 tutorias média simples
   -Seminário: 1 peso
   -Módulo: 4 peso
-  
 
 Saúde da Mulher:
   -Prática: 2 peso 
@@ -93,4 +93,4 @@ Obs 2: O sistema de notas é de 0 - 10.
 
 Obs 3: As provas de Módulo tem 50 questões, o usuário vai informar o núemro de acertos e o código deve calcular a nota. Coloque na descrição do campot para informar o número de acertos.
 
-Obs 4: As provas de Módulo do Terceiro Semestre (UC3) em específico tem 20 questões
+Obs 4: As provas de Módulo do Terceiro Semestre (UC3) em específico tem 25 questões

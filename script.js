@@ -201,7 +201,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const tutoriaV = isNaN(tutoria) ? 0 : tutoria;
         const seminarioV = isNaN(seminario) ? 0 : seminario;
-        const moduloNota = isNaN(moduloAcertos) ? 0 : (moduloAcertos / 20) * 10;
+        const moduloNota = isNaN(moduloAcertos) ? 0 : (moduloAcertos / 25) * 10;
 
         // Σ(nota × peso) / 10
         const nota = (pratica * 2.5 + tutoriaV * 2.5 + seminarioV * 1 + moduloNota * 4) / 10;
@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'mulher-pratica': 2,
             'mulher-tutoria-media': 2.5,
             'mulher-seminario': 1,
-            'mulher-modulo': { weight: 4, max: 20 },
+            'mulher-modulo': { weight: 4, max: 25 },
             'mulher-psicologia': 0.5
         });
         setSubjectResult('mulher-result', 'mulher-status', 'cr-mulher', nota, allEmpty);
@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const { nota, allEmpty } = weightedAverage({
             'crianca-tutoria-media': 3,
             'crianca-seminario': 1,
-            'crianca-modulo': { weight: 4.5, max: 20 },
+            'crianca-modulo': { weight: 4.5, max: 25 },
             'crianca-relatorio': 1,
             'crianca-psicologia': 0.5
         });
