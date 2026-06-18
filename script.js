@@ -215,7 +215,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'mulher-pratica': 2,
             'mulher-tutoria-media': 2.5,
             'mulher-seminario': 1,
-            'mulher-modulo': { weight: 4, max: 25 },
+            'mulher-modulo': { weight: 4, max: 20 },
             'mulher-psicologia': 0.5
         });
         setSubjectResult('mulher-result', 'mulher-status', 'cr-mulher', nota, allEmpty);
