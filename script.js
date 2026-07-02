@@ -226,7 +226,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const { nota, allEmpty } = weightedAverage({
             'crianca-tutoria-media': 3,
             'crianca-seminario': 1,
-            'crianca-modulo': { weight: 4.5, max: 25 },
+            'crianca-modulo': { weight: 4.5, max: 20 },
             'crianca-relatorio': 1,
             'crianca-psicologia': 0.5
         });
