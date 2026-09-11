@@ -284,7 +284,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // ==========================================================
 
     // Saúde da Mulher II — pesos somam 10: Seminário 1.5 + Tutoria 3.5 + Prova de Módulo 5
-    // Prova (0-10): 25 fechadas (0.32 cada = 8 pontos, peso 4) + 2 abertas (1 ponto cada = 2 pontos, peso 1)
+    // Prova (0-10): 20 fechadas (0.4 cada = 8 pontos, peso 4) + 2 abertas (1 ponto cada = 2 pontos, peso 1)
     // O botão alterna entre informar acertos + abertas ou a nota da prova direto
     let mulher2Mode = 'acertos';
 
@@ -295,7 +295,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const acertos = parseFloat(document.getElementById('mulher2-fechadas').value);
         const abertas = parseFloat(document.getElementById('mulher2-abertas').value);
         if (isNaN(acertos) && isNaN(abertas)) return NaN;
-        return (isNaN(acertos) ? 0 : acertos * 0.32) + (isNaN(abertas) ? 0 : abertas);
+        return (isNaN(acertos) ? 0 : acertos * 0.4) + (isNaN(abertas) ? 0 : abertas);
     }
 
     function calculateMulher2() {

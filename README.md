@@ -115,10 +115,10 @@ CR = (CR Atual × 5 + B.A.D. + IC + Adulto + Mulher + Criança) / 13
 | Tutoria         |  3,5 |
 | Seminário       |  1,5 |
 
-A prova de módulo (0–10) tem 25 questões fechadas (0,32 cada — peso 4 na média) e 2 abertas (1 ponto cada — peso 1 na média):
+A prova de módulo (0–10) tem 20 questões fechadas (0,4 cada — peso 4 na média) e 2 abertas (1 ponto cada — peso 1 na média):
 
 ```
-Nota da prova = Acertos nas fechadas × 0,32 + Abertas
+Nota da prova = Acertos nas fechadas × 0,4 + Abertas
 ```
 
 Um botão alterna entre informar acertos + abertas ou digitar a nota da prova direto.

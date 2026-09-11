@@ -92,9 +92,9 @@ Saúde da Mulher II:
   -Seminário: 1,5 peso
   -Tutoria: 3,5 peso
   -Prova de Módulo: 5 peso (nota de 0 - 10):
-    -25 questões fechadas valendo 0,32 cada (8 no total, peso 4 na média)
+    -20 questões fechadas valendo 0,4 cada (8 no total, peso 4 na média)
     -2 questões abertas valendo 1 ponto cada (2 no total, peso 1 na média)
-    -Nota = (Acertos nas fechadas x 0,32) + Abertas
+    -Nota = (Acertos nas fechadas x 0,4) + Abertas
     -Um botão alterna entre informar acertos + abertas OU digitar direto a nota da prova
 
 Demais matérias e CR: Em construção
