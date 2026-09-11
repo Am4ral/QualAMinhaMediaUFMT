@@ -1,5 +1,4 @@
 document.addEventListener('DOMContentLoaded', () => {
-<<<<<<< HEAD
     // ---------- Helpers ----------
     function applyStatus(statusEl, nota) {
         if (nota >= 7) {
@@ -8,81 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
         } else if (nota >= 5) {
             statusEl.textContent = 'Exame Final';
             statusEl.style.backgroundColor = '#f39c12';
-=======
-    // Weights configuration
-    const weights = {
-        tutoria: 2.5,
-        pratica1: 0.5,
-        pratica2: 0.5,
-        praticaHisto: 0.5,
-        apresSem: 0.7,
-        banner: 0.3,
-        modulo: 5.0, // Special case: grade is out of 50, so we normalize
-        antropologia: 1.0,
-        ic: 1.0
-    };
-
-    // DOM Elements
-    const inputs = {
-        tutoria: document.getElementById('tutoria'),
-        pratica1: document.getElementById('pratica1'),
-        pratica2: document.getElementById('pratica2'),
-        praticaHisto: document.getElementById('praticaHisto'),
-        apresSem: document.getElementById('apresSem'),
-        banner: document.getElementById('banner'),
-        modulo: document.getElementById('modulo'),
-        antropologia: document.getElementById('antropologia'),
-        ic: document.getElementById('ic')
-    };
-
-    const finalResultEl = document.getElementById('final-result');
-    const resultStatusEl = document.getElementById('result-status');
-    const navButtons = document.querySelectorAll('.nav-btn');
-    const semesterTitle = document.getElementById('semester-title');
-    const semester1Content = document.getElementById('semester-1-content');
-    const semester3Content = document.getElementById('semester-3-content');
-    const semesterPlaceholder = document.getElementById('semester-placeholder');
-
-    // Calculate Average Function
-    function calculateAverage() {
-        let totalScore = 0;
-        let allEmpty = true;
-        let totalWeight = 0;
-
-        // Calculate total weight dynamically
-        Object.values(weights).forEach(w => totalWeight += w);
-
-        // Helper to get value and apply weight
-        const getValue = (id, weight, maxScore = 10) => {
-            const val = parseFloat(inputs[id].value);
-            if (isNaN(val)) return 0;
-            allEmpty = false;
-
-            // Normalize to 0-10 scale
-            const normalizedValue = (val / maxScore) * 10;
-            // Contribution to the weighted average
-            return normalizedValue * weight;
-        };
-
-        totalScore += getValue('tutoria', weights.tutoria);
-        totalScore += getValue('pratica1', weights.pratica1);
-        totalScore += getValue('pratica2', weights.pratica2);
-        totalScore += getValue('praticaHisto', weights.praticaHisto);
-        totalScore += getValue('apresSem', weights.apresSem);
-        totalScore += getValue('banner', weights.banner);
-        totalScore += getValue('modulo', weights.modulo, 50); // Max score 50
-        totalScore += getValue('antropologia', weights.antropologia);
-        totalScore += getValue('ic', weights.ic);
-
-        // Calculate weighted average
-        // Formula: Sum(Value * Weight) / Sum(Weights)
-        const finalAverage = totalScore / totalWeight;
-
-        if (allEmpty) {
-            finalResultEl.textContent = "0.00";
-            resultStatusEl.textContent = "Aguardando notas...";
-            resultStatusEl.style.backgroundColor = "rgba(255, 255, 255, 0.2)";
->>>>>>> 31425edca823e00f196fff150112485e42c0341e
         } else {
             statusEl.textContent = 'Reprovado';
             statusEl.style.backgroundColor = '#c0392b';
@@ -355,223 +279,116 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(id).addEventListener('input', calculateCR_UC3));
 
     // ==========================================================
+    // UC4 — 4º Semestre
+    // Demais matérias e CR em construção
+    // ==========================================================
+
+    // Saúde da Mulher II — pesos somam 10: Seminário 1.5 + Tutoria 3.5 + Prova de Módulo 5
+    // Prova (0-10): 25 fechadas (0.32 cada = 8 pontos, peso 4) + 2 abertas (1 ponto cada = 2 pontos, peso 1)
+    // O botão alterna entre informar acertos + abertas ou a nota da prova direto
+    let mulher2Mode = 'acertos';
+
+    function getMulher2Prova() {
+        if (mulher2Mode === 'nota') {
+            return parseFloat(document.getElementById('mulher2-prova').value);
+        }
+        const acertos = parseFloat(document.getElementById('mulher2-fechadas').value);
+        const abertas = parseFloat(document.getElementById('mulher2-abertas').value);
+        if (isNaN(acertos) && isNaN(abertas)) return NaN;
+        return (isNaN(acertos) ? 0 : acertos * 0.32) + (isNaN(abertas) ? 0 : abertas);
+    }
+
+    function calculateMulher2() {
+        const seminario = parseFloat(document.getElementById('mulher2-seminario').value);
+        const tutoria = parseFloat(document.getElementById('mulher2-tutoria').value);
+        const prova = getMulher2Prova();
+
+        document.getElementById('mulher2-prova-preview').textContent = isNaN(prova) ? '—' : prova.toFixed(2);
+
+        const allEmpty = [seminario, tutoria, prova].every(v => isNaN(v));
+
+        // Σ(nota × peso) / 10
+        const nota = (
+            (isNaN(seminario) ? 0 : seminario) * 1.5 +
+            (isNaN(tutoria) ? 0 : tutoria) * 3.5 +
+            (isNaN(prova) ? 0 : prova) * 5
+        ) / 10;
+
+        setSubjectResult('mulher2-result', 'mulher2-status', null, nota, allEmpty);
+    }
+
+    function setMulher2Mode(mode) {
+        mulher2Mode = mode;
+        document.querySelectorAll('#mulher2-mode-toggle .mode-btn').forEach(btn => {
+            const active = btn.dataset.mode === mode;
+            btn.classList.toggle('active', active);
+            btn.setAttribute('aria-pressed', active);
+        });
+        document.querySelectorAll('[data-mulher2-mode]').forEach(el => {
+            el.style.display = el.dataset.mulher2Mode === mode ? '' : 'none';
+        });
+        calculateMulher2();
+    }
+
+    document.querySelectorAll('#mulher2-mode-toggle .mode-btn').forEach(btn =>
+        btn.addEventListener('click', () => setMulher2Mode(btn.dataset.mode)));
+    ['mulher2-seminario', 'mulher2-tutoria', 'mulher2-fechadas', 'mulher2-abertas', 'mulher2-prova'].forEach(id =>
+        document.getElementById(id).addEventListener('input', calculateMulher2));
+
+    // ==========================================================
     // Navegação
     // ==========================================================
     const navButtons = document.querySelectorAll('.nav-btn');
     const semesterTitle = document.getElementById('semester-title');
+    const contentArea = document.querySelector('.content-area');
+    const homeContent = document.getElementById('home-content');
     const semester1Content = document.getElementById('semester-1-content');
     const semester2Content = document.getElementById('semester-2-content');
     const semester3Content = document.getElementById('semester-3-content');
+    const semester4Content = document.getElementById('semester-4-content');
     const semesterPlaceholder = document.getElementById('semester-placeholder');
 
-<<<<<<< HEAD
-=======
-    // UC3 helpers
-    function applyStatus(statusEl, nota) {
-        if (nota >= 7) {
-            statusEl.textContent = 'Aprovado!';
-            statusEl.style.backgroundColor = '#27ae60';
-        } else if (nota >= 5) {
-            statusEl.textContent = 'Exame Final';
-            statusEl.style.backgroundColor = '#f39c12';
-        } else {
-            statusEl.textContent = 'Reprovado';
-            statusEl.style.backgroundColor = '#c0392b';
-        }
-    }
-
-    function setSubjectResult(resultId, statusId, crInputId, nota, allEmpty) {
-        const resultEl = document.getElementById(resultId);
-        const statusEl = document.getElementById(statusId);
-        const crInput = crInputId ? document.getElementById(crInputId) : null;
-
-        if (allEmpty) {
-            resultEl.textContent = '0.00';
-            statusEl.textContent = 'Aguardando notas...';
-            statusEl.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-            if (crInput) crInput.value = '';
-        } else {
-            resultEl.textContent = nota.toFixed(2);
-            applyStatus(statusEl, nota);
-            if (crInput) crInput.value = nota.toFixed(2);
-        }
-    }
-
-    // B.A.D.: pesos somam 1.0, fórmula = Σ(peso × nota)
-    function calculateBAD() {
-        const fields = {
-            'bad-parasitologia': 0.225,
-            'bad-virologia': 0.1,
-            'bad-imunologia': 0.225,
-            'bad-patologia': 0.225,
-            'bad-microbiologia': 0.225
-        };
-        let score = 0;
-        let allEmpty = true;
-        for (const [id, w] of Object.entries(fields)) {
-            const v = parseFloat(document.getElementById(id).value);
-            if (!isNaN(v)) { allEmpty = false; score += v * w; }
-        }
-        setSubjectResult('bad-result', 'bad-status', 'cr-bad', score, allEmpty);
-        calculateCR();
-    }
-
-    // Saúde do Adulto I: pesos base somam 10; extra opcional +0.5
-    // nota = Σ(nota × peso) / total_peso
-    function calculateAdulto() {
-        const fields = {
-            'adulto-osce': 1.25,
-            'adulto-praticas-he': 1.25,
-            'adulto-tutoria-media': 2.5,
-            'adulto-seminario': 1,
-            'adulto-modulo': 4
-        };
-        let score = 0;
-        let totalPeso = 10;
-        let allEmpty = true;
-        for (const [id, w] of Object.entries(fields)) {
-            const v = parseFloat(document.getElementById(id).value);
-            if (!isNaN(v)) { allEmpty = false; score += v * w; }
-        }
-        if (document.getElementById('adulto-extra').checked) {
-            allEmpty = false;
-            score += 10 * 0.5;
-            totalPeso += 0.5;
-        }
-        const nota = allEmpty ? 0 : score / totalPeso;
-        setSubjectResult('adulto-result', 'adulto-status', 'cr-adulto', nota, allEmpty);
-        calculateCR();
-    }
-
-    // Saúde da Mulher I: pesos somam 10
-    function calculateMulher() {
-        const fields = {
-            'mulher-pratica': 2,
-            'mulher-tutoria-media': 2.5,
-            'mulher-seminario': 1,
-            'mulher-modulo': 4,
-            'mulher-psicologia': 0.5
-        };
-        let score = 0;
-        let allEmpty = true;
-        for (const [id, w] of Object.entries(fields)) {
-            const v = parseFloat(document.getElementById(id).value);
-            if (!isNaN(v)) { allEmpty = false; score += v * w; }
-        }
-        const nota = allEmpty ? 0 : score / 10;
-        setSubjectResult('mulher-result', 'mulher-status', 'cr-mulher', nota, allEmpty);
-        calculateCR();
-    }
-
-    // Saúde da Criança e do Adolescente: pesos somam 10
-    function calculateCrianca() {
-        const fields = {
-            'crianca-tutoria-media': 3,
-            'crianca-seminario': 1,
-            'crianca-modulo': 4.5,
-            'crianca-relatorio': 1,
-            'crianca-psicologia': 0.5
-        };
-        let score = 0;
-        let allEmpty = true;
-        for (const [id, w] of Object.entries(fields)) {
-            const v = parseFloat(document.getElementById(id).value);
-            if (!isNaN(v)) { allEmpty = false; score += v * w; }
-        }
-        const nota = allEmpty ? 0 : score / 10;
-        setSubjectResult('crianca-result', 'crianca-status', 'cr-crianca', nota, allEmpty);
-        calculateCR();
-    }
-
-    // CR = (CR_Atual × 5 + BAD + IC + Adulto + Mulher + Criança) / 13
-    function calculateCR() {
-        const crAtual = parseFloat(document.getElementById('cr-atual').value);
-        const bad = parseFloat(document.getElementById('cr-bad').value);
-        const ic = parseFloat(document.getElementById('cr-ic').value);
-        const adulto = parseFloat(document.getElementById('cr-adulto').value);
-        const mulher = parseFloat(document.getElementById('cr-mulher').value);
-        const crianca = parseFloat(document.getElementById('cr-crianca').value);
-
-        const resultEl = document.getElementById('cr-result');
-        const statusEl = document.getElementById('cr-status');
-
-        const allEmpty = [crAtual, bad, ic, adulto, mulher, crianca].every(v => isNaN(v));
-        if (allEmpty) {
-            resultEl.textContent = '0.00';
-            statusEl.textContent = 'Aguardando notas...';
-            statusEl.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-            return;
-        }
-
-        const cr = (
-            (isNaN(crAtual) ? 0 : crAtual * 5) +
-            (isNaN(bad) ? 0 : bad) +
-            (isNaN(ic) ? 0 : ic) +
-            (isNaN(adulto) ? 0 : adulto) +
-            (isNaN(mulher) ? 0 : mulher) +
-            (isNaN(crianca) ? 0 : crianca)
-        ) / 13;
-
-        resultEl.textContent = cr.toFixed(2);
-        applyStatus(statusEl, cr);
-    }
-
-    // UC3 Event Listeners
-    ['bad-parasitologia', 'bad-virologia', 'bad-imunologia', 'bad-patologia', 'bad-microbiologia'].forEach(id =>
-        document.getElementById(id).addEventListener('input', calculateBAD));
-
-    ['adulto-osce', 'adulto-praticas-he', 'adulto-tutoria-media', 'adulto-seminario', 'adulto-modulo'].forEach(id =>
-        document.getElementById(id).addEventListener('input', calculateAdulto));
-    document.getElementById('adulto-extra').addEventListener('change', calculateAdulto);
-
-    ['mulher-pratica', 'mulher-tutoria-media', 'mulher-seminario', 'mulher-modulo', 'mulher-psicologia'].forEach(id =>
-        document.getElementById(id).addEventListener('input', calculateMulher));
-
-    ['crianca-tutoria-media', 'crianca-seminario', 'crianca-modulo', 'crianca-relatorio', 'crianca-psicologia'].forEach(id =>
-        document.getElementById(id).addEventListener('input', calculateCrianca));
-
-    ['cr-atual', 'cr-ic'].forEach(id =>
-        document.getElementById(id).addEventListener('input', calculateCR));
-
-    // Navigation Logic
->>>>>>> 31425edca823e00f196fff150112485e42c0341e
     navButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             navButtons.forEach(b => b.classList.remove('active'));
             btn.classList.add('active');
+            btn.scrollIntoView({ block: 'nearest', inline: 'nearest' });
+            contentArea.scrollTop = 0;
 
             const semester = btn.dataset.semester;
-            semesterTitle.textContent = `${semester}º Semestre`;
+            semesterTitle.textContent = semester === 'home' ? 'Início' : `${semester}º Semestre`;
 
-            semester1Content.style.display = 'none';
-<<<<<<< HEAD
-            semester2Content.style.display = 'none';
-=======
->>>>>>> 31425edca823e00f196fff150112485e42c0341e
-            semester3Content.style.display = 'none';
-            semesterPlaceholder.style.display = 'none';
+            document.querySelectorAll('.semester-content').forEach(el => el.style.display = 'none');
 
-            if (semester === '1') {
+            if (semester === 'home') {
+                homeContent.style.display = 'block';
+            } else if (semester === '1') {
                 semester1Content.style.display = 'block';
-<<<<<<< HEAD
                 calculateLocomotor();
                 calculateNeuro();
             } else if (semester === '2') {
                 semester2Content.style.display = 'block';
                 calculateCardio();
                 calculateDigest();
-=======
-                calculateAverage();
->>>>>>> 31425edca823e00f196fff150112485e42c0341e
             } else if (semester === '3') {
                 semester3Content.style.display = 'block';
                 calculateBAD();
                 calculateAdulto();
                 calculateMulher();
                 calculateCrianca();
+            } else if (semester === '4') {
+                semester4Content.style.display = 'block';
+                calculateMulher2();
             } else {
                 semesterPlaceholder.style.display = 'block';
             }
+        });
+    });
+
+    // Cards da página inicial levam ao semestre correspondente
+    document.querySelectorAll('.home-card').forEach(card => {
+        card.addEventListener('click', () => {
+            document.querySelector(`.nav-btn[data-semester="${card.dataset.semester}"]`).click();
         });
     });
 
