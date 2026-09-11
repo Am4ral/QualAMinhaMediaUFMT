@@ -331,21 +331,96 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     document.querySelectorAll('#mulher2-mode-toggle .mode-btn').forEach(btn =>
-        btn.addEventListener('click', () => setMulher2Mode(btn.dataset.mode)));
+        btn.addEventListener('click', () => {
+            setMulher2Mode(btn.dataset.mode);
+            saveGrades();
+        }));
     ['mulher2-seminario', 'mulher2-tutoria', 'mulher2-fechadas', 'mulher2-abertas', 'mulher2-prova'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateMulher2));
+
+    // Recalcula todas as matérias (e o CR) de cada semestre
+    const semesterCalculators = {
+        '1': () => { calculateLocomotor(); calculateNeuro(); },
+        '2': () => { calculateCardio(); calculateDigest(); },
+        '3': () => { calculateBAD(); calculateAdulto(); calculateMulher(); calculateCrianca(); },
+        '4': () => calculateMulher2()
+    };
+
+    // ==========================================================
+    // Salvamento das notas no navegador (localStorage)
+    // Guarda os campos digitáveis por id — os campos "Automático" são recalculados
+    // ==========================================================
+    const STORAGE_KEY = 'calculadora-med-ufmt:notas:v1';
+
+    function editableInputs(scope = document) {
+        return scope.querySelectorAll('.uc-form input:not([readonly])');
+    }
+
+    function saveGrades() {
+        const values = {};
+        editableInputs().forEach(input => {
+            if (input.type === 'checkbox') {
+                if (input.checked) values[input.id] = true;
+            } else if (input.value !== '') {
+                values[input.id] = input.value;
+            }
+        });
+        try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ values, mulher2Mode }));
+        } catch (e) {
+            // Armazenamento indisponível (ex.: aba anônima) — a calculadora segue funcionando
+        }
+    }
+
+    function restoreGrades() {
+        let data;
+        try {
+            data = JSON.parse(localStorage.getItem(STORAGE_KEY));
+        } catch (e) {
+            return;
+        }
+        if (!data || !data.values) return;
+
+        editableInputs().forEach(input => {
+            const saved = data.values[input.id];
+            if (saved === undefined) return;
+            if (input.type === 'checkbox') {
+                input.checked = saved === true;
+            } else {
+                input.value = saved;
+            }
+        });
+        if (data.mulher2Mode === 'nota') setMulher2Mode('nota');
+    }
+
+    const contentArea = document.querySelector('.content-area');
+    contentArea.addEventListener('input', saveGrades);
+    contentArea.addEventListener('change', saveGrades);
+
+    // Botão "Limpar notas deste semestre"
+    document.querySelectorAll('[data-clear-semester]').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const semester = btn.dataset.clearSemester;
+            if (!confirm(`Apagar todas as notas do ${semester}º semestre?`)) return;
+
+            editableInputs(document.getElementById(`semester-${semester}-content`)).forEach(input => {
+                if (input.type === 'checkbox') {
+                    input.checked = false;
+                } else {
+                    input.value = '';
+                }
+            });
+            semesterCalculators[semester]();
+            saveGrades();
+        });
+    });
 
     // ==========================================================
     // Navegação
     // ==========================================================
     const navButtons = document.querySelectorAll('.nav-btn');
     const semesterTitle = document.getElementById('semester-title');
-    const contentArea = document.querySelector('.content-area');
     const homeContent = document.getElementById('home-content');
-    const semester1Content = document.getElementById('semester-1-content');
-    const semester2Content = document.getElementById('semester-2-content');
-    const semester3Content = document.getElementById('semester-3-content');
-    const semester4Content = document.getElementById('semester-4-content');
     const semesterPlaceholder = document.getElementById('semester-placeholder');
 
     navButtons.forEach(btn => {
@@ -362,23 +437,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (semester === 'home') {
                 homeContent.style.display = 'block';
-            } else if (semester === '1') {
-                semester1Content.style.display = 'block';
-                calculateLocomotor();
-                calculateNeuro();
-            } else if (semester === '2') {
-                semester2Content.style.display = 'block';
-                calculateCardio();
-                calculateDigest();
-            } else if (semester === '3') {
-                semester3Content.style.display = 'block';
-                calculateBAD();
-                calculateAdulto();
-                calculateMulher();
-                calculateCrianca();
-            } else if (semester === '4') {
-                semester4Content.style.display = 'block';
-                calculateMulher2();
+            } else if (semesterCalculators[semester]) {
+                document.getElementById(`semester-${semester}-content`).style.display = 'block';
+                semesterCalculators[semester]();
             } else {
                 semesterPlaceholder.style.display = 'block';
             }
@@ -392,7 +453,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Inicialização
-    calculateLocomotor();
-    calculateNeuro();
+    // Inicialização: restaura as notas salvas e recalcula tudo
+    restoreGrades();
+    Object.values(semesterCalculators).forEach(calculate => calculate());
 });

@@ -12,6 +12,7 @@ Calculadora web de médias e CR (Coeficiente de Rendimento) para estudantes de M
 - **3º Semestre (UC3)** — B.A.D., Saúde do Adulto I, Saúde da Mulher I, Saúde da Criança e do Adolescente + IC
 - **4º Semestre (UC4)** — Saúde da Mulher II; demais matérias e CR em construção
 - Cálculo em tempo real conforme as notas são digitadas
+- Notas salvas automaticamente no navegador (`localStorage`), com botão para limpar cada semestre
 - CR auto-preenchido a partir das médias das matérias
 - Status visual (Aprovado / Exame Final / Reprovado)
 - Layout responsivo (mobile-friendly)
