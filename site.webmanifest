@@ -1,0 +1,12 @@
+{
+    "name": "Calculadora Med UFMT",
+    "short_name": "Med UFMT",
+    "icons": [
+        { "src": "icon-192.png", "type": "image/png", "sizes": "192x192" },
+        { "src": "icon-512.png", "type": "image/png", "sizes": "512x512" }
+    ],
+    "start_url": "./",
+    "display": "standalone",
+    "background_color": "#f4f6f9",
+    "theme_color": "#1b3a6b"
+}
