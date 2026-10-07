@@ -333,10 +333,10 @@ document.addEventListener('DOMContentLoaded', () => {
         calculateUC4Subject('mulher2', 0.4, { seminario: 1.5, tutoria: 3.5 });
     }
 
-    // Saúde da Criança II — pesos somam 10: Seminário 1.5 + Tutoria 3 + Prática 0.5 + Prova de Módulo 5
+    // Saúde da Criança II — pesos somam 10: Seminário 1 + Tutoria 3.5 + Prática 0.5 + Prova de Módulo 5
     // Prova (0-10): 25 fechadas (0.25 cada = 6.25 pontos) + 10 abertas (0.375 cada = 3.75 pontos)
     function calculateCrianca2() {
-        calculateUC4Subject('crianca2', 0.25, { seminario: 1.5, tutoria: 3, pratica: 0.5 });
+        calculateUC4Subject('crianca2', 0.25, { seminario: 1, tutoria: 3.5, pratica: 0.5 });
     }
 
     provaCalculators.mulher2 = calculateMulher2;
