@@ -673,6 +673,57 @@
                             </div>
                         </div>
 
+                        <!-- Saúde da Criança II -->
+                        <div class="calculator-card">
+                            <div class="card-header">
+                                <h3>Saúde da Criança II</h3>
+                            </div>
+                            <form class="uc-form">
+                                <div class="input-group">
+                                    <label for="crianca2-seminario">Seminário <span class="weight-badge">Peso 1.5</span></label>
+                                    <input type="number" id="crianca2-seminario" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group">
+                                    <label for="crianca2-tutoria">Tutoria <span class="weight-badge">Peso 3</span></label>
+                                    <input type="number" id="crianca2-tutoria" step="0.01" min="0" max="10" placeholder="0.00">
+                                </div>
+                                <div class="input-group input-full-width">
+                                    <label for="crianca2-pratica">Prática <span class="weight-badge">Peso 0.5</span></label>
+                                    <input type="number" id="crianca2-pratica" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <small class="field-note">Forma de avaliação ainda não definida</small>
+                                </div>
+                                <div class="input-group input-full-width">
+                                    <span class="group-label">Prova de Módulo <span class="weight-badge">Peso 5</span></span>
+                                    <div class="mode-toggle" id="crianca2-mode-toggle" role="group" aria-label="Forma de informar a prova de módulo">
+                                        <button type="button" class="mode-btn active" data-mode="acertos" aria-pressed="true">Nº de acertos</button>
+                                        <button type="button" class="mode-btn" data-mode="nota" aria-pressed="false">Nota da prova</button>
+                                    </div>
+                                </div>
+                                <div class="input-group" data-crianca2-mode="acertos">
+                                    <label for="crianca2-fechadas">Acertos nas fechadas <span class="weight-badge">Peso 3.125</span></label>
+                                    <input type="number" id="crianca2-fechadas" step="1" min="0" max="25" placeholder="0">
+                                    <small class="field-note">Informe o número de acertos (0–25), 0.25 cada</small>
+                                </div>
+                                <div class="input-group" data-crianca2-mode="acertos">
+                                    <label for="crianca2-abertas">Questões abertas <span class="weight-badge">Peso 1.875</span></label>
+                                    <input type="number" id="crianca2-abertas" step="0.01" min="0" max="3.75" placeholder="0.00">
+                                    <small class="field-note">Soma das 10 questões abertas, 0.375 cada (0–3.75)</small>
+                                </div>
+                                <small class="field-note input-full-width" data-crianca2-mode="acertos">Nota da prova: <strong id="crianca2-prova-preview">—</strong></small>
+                                <div class="input-group input-full-width" data-crianca2-mode="nota" style="display: none;">
+                                    <label for="crianca2-prova">Nota da prova <span class="weight-badge">0–10</span></label>
+                                    <input type="number" id="crianca2-prova" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <small class="field-note">Nota total da prova (objetiva + discursiva)</small>
+                                </div>
+                                <p class="notice-warning prova-warning input-full-width" role="note"><b>⚠ Atenção:</b> os pesos da prova podem mudar. Os valores apresentados são baseados na prova da turma passada.</p>
+                            </form>
+                            <div class="result-section">
+                                <div class="result-label">Nota Final</div>
+                                <div class="result-value" id="crianca2-result">0.00</div>
+                                <div class="result-status" id="crianca2-status">Aguardando notas...</div>
+                            </div>
+                        </div>
+
                         <!-- Demais matérias -->
                         <div class="calculator-card construction-card">
                             <div class="card-header">

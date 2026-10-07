@@ -1,0 +1,464 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-10-03T18:06:45.547588+00:00",
+  "title": "Design System: Calculadora Med UFMT",
+  "extensions": {
+    "colorMeta": {
+      "form": {
+        "role": "primary",
+        "displayName": "Salmão de Dropout",
+        "canonical": "oklch(65.0% 0.164 37.2)",
+        "tonalRamp": [
+          "#210000",
+          "#520000",
+          "#870300",
+          "#af370b",
+          "#d95e39",
+          "#ff845e",
+          "#ffbea9",
+          "#ffe6dd"
+        ]
+      },
+      "form-text": {
+        "role": "primary",
+        "displayName": "Salmão Legível",
+        "canonical": "oklch(52.3% 0.154 37.1)",
+        "tonalRamp": [
+          "#220000",
+          "#4f0200",
+          "#831000",
+          "#ac3c18",
+          "#d56140",
+          "#ff8764",
+          "#ffbda7",
+          "#ffe6dc"
+        ]
+      },
+      "ok": {
+        "role": "secondary",
+        "displayName": "Verde Aprovado",
+        "canonical": "oklch(49.3% 0.106 158.4)",
+        "tonalRamp": [
+          "#001104",
+          "#003117",
+          "#00552e",
+          "#1e784f",
+          "#499c71",
+          "#6fc395",
+          "#93e7b7",
+          "#b0ffd4"
+        ]
+      },
+      "ok-tint": {
+        "role": "secondary",
+        "displayName": "Tom Aprovado",
+        "canonical": "oklch(93.1% 0.027 163.2)",
+        "tonalRamp": [
+          "#020f08",
+          "#1a2b23",
+          "#384a41",
+          "#596b62",
+          "#7b8e85",
+          "#a0b4a9",
+          "#c2d7cc",
+          "#dff4e9"
+        ]
+      },
+      "exam": {
+        "role": "secondary",
+        "displayName": "Âmbar Exame",
+        "canonical": "oklch(52.9% 0.119 64.3)",
+        "tonalRamp": [
+          "#190500",
+          "#3d1d00",
+          "#683700",
+          "#945400",
+          "#ba7830",
+          "#e29d57",
+          "#ffc07b",
+          "#ffe7c7"
+        ]
+      },
+      "exam-tint": {
+        "role": "secondary",
+        "displayName": "Tom Exame",
+        "canonical": "oklch(93.4% 0.045 82.6)",
+        "tonalRamp": [
+          "#130900",
+          "#31240a",
+          "#514329",
+          "#736449",
+          "#97876b",
+          "#bcac8e",
+          "#e0cfb0",
+          "#fdeccd"
+        ]
+      },
+      "fail": {
+        "role": "secondary",
+        "displayName": "Carmim Reprovado",
+        "canonical": "oklch(46.2% 0.175 13.9)",
+        "tonalRamp": [
+          "#200004",
+          "#500015",
+          "#84002a",
+          "#b42847",
+          "#de5269",
+          "#ff8090",
+          "#ffbbc0",
+          "#ffe5e7"
+        ]
+      },
+      "fail-tint": {
+        "role": "secondary",
+        "displayName": "Tom Reprovado",
+        "canonical": "oklch(90.5% 0.037 1.0)",
+        "tonalRamp": [
+          "#17050a",
+          "#351f25",
+          "#563d44",
+          "#795d65",
+          "#9d8088",
+          "#c3a5ac",
+          "#e7c7cf",
+          "#ffe5ed"
+        ]
+      },
+      "ground": {
+        "role": "neutral",
+        "displayName": "Fundo Salmão Pálido",
+        "canonical": "oklch(95.9% 0.008 48.7)",
+        "tonalRamp": [
+          "#0e0a08",
+          "#2a2523",
+          "#494441",
+          "#6a6562",
+          "#8d8885",
+          "#b2adaa",
+          "#d5d0cd",
+          "#f3edea"
+        ]
+      },
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papel",
+        "canonical": "oklch(100.0% 0.000 89.9)",
+        "tonalRamp": [
+          "#0b0b0b",
+          "#262626",
+          "#454545",
+          "#666666",
+          "#898989",
+          "#aeaeae",
+          "#d1d1d1",
+          "#eeeeee"
+        ]
+      },
+      "form-tint": {
+        "role": "neutral",
+        "displayName": "Faixa Salmão",
+        "canonical": "oklch(94.0% 0.025 42.1)",
+        "tonalRamp": [
+          "#140804",
+          "#31221d",
+          "#51413a",
+          "#73625b",
+          "#97847d",
+          "#bda9a2",
+          "#e1ccc4",
+          "#fee9e1"
+        ]
+      },
+      "field": {
+        "role": "neutral",
+        "displayName": "Caixa de Preenchimento",
+        "canonical": "oklch(97.1% 0.012 43.3)",
+        "tonalRamp": [
+          "#100a07",
+          "#2c2522",
+          "#4b4340",
+          "#6c6461",
+          "#908783",
+          "#b5aca8",
+          "#d8cfcb",
+          "#f6ece8"
+        ]
+      },
+      "form-line": {
+        "role": "neutral",
+        "displayName": "Fio Salmão",
+        "canonical": "oklch(85.2% 0.056 40.5)",
+        "tonalRamp": [
+          "#1d0200",
+          "#3d1c10",
+          "#5f3a2d",
+          "#825b4d",
+          "#a87e6f",
+          "#cea393",
+          "#f3c5b5",
+          "#ffe6da"
+        ]
+      },
+      "form-line-strong": {
+        "role": "neutral",
+        "displayName": "Fio Salmão Forte",
+        "canonical": "oklch(77.7% 0.086 39.7)",
+        "tonalRamp": [
+          "#210000",
+          "#471200",
+          "#6b331f",
+          "#90543f",
+          "#b67761",
+          "#de9c85",
+          "#ffbea7",
+          "#ffe6da"
+        ]
+      },
+      "ink": {
+        "role": "neutral",
+        "displayName": "Tinta",
+        "canonical": "oklch(20.4% 0.008 48.3)",
+        "tonalRamp": [
+          "#0e0a08",
+          "#2a2523",
+          "#494442",
+          "#6a6562",
+          "#8d8885",
+          "#b2adaa",
+          "#d5d0cd",
+          "#f3edea"
+        ]
+      },
+      "ink-2": {
+        "role": "neutral",
+        "displayName": "Tinta Secundária",
+        "canonical": "oklch(44.1% 0.017 46.0)",
+        "tonalRamp": [
+          "#110906",
+          "#2e2420",
+          "#4d423e",
+          "#6f635e",
+          "#928681",
+          "#b8aba5",
+          "#dbcec8",
+          "#f9ebe5"
+        ]
+      },
+      "ink-3": {
+        "role": "neutral",
+        "displayName": "Tinta Apagada",
+        "canonical": "oklch(57.8% 0.022 46.6)",
+        "tonalRamp": [
+          "#130804",
+          "#30231e",
+          "#4f423b",
+          "#71635c",
+          "#95857e",
+          "#baaaa3",
+          "#decdc5",
+          "#fcebe3"
+        ]
+      },
+      "placeholder": {
+        "role": "neutral",
+        "displayName": "Placeholder",
+        "canonical": "oklch(54.0% 0.072 39.2)",
+        "tonalRamp": [
+          "#210000",
+          "#421708",
+          "#653627",
+          "#8a5747",
+          "#af7a69",
+          "#d79f8c",
+          "#fcc2ae",
+          "#ffe7dc"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Nota final de cada matéria e do CR."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Título do semestre (26px no celular)."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Nome da matéria no cabeçalho da folha."
+      },
+      "title-sm": {
+        "displayName": "Title pequeno",
+        "purpose": "Cabeçalho da folha-resumo e nome do semestre na lista inicial."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto corrido e avisos (até 72ch)."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Valores digitados e notas na folha-resumo, numerais tabulares."
+      },
+      "label": {
+        "displayName": "Rótulo impresso",
+        "purpose": "Rótulos de campo e régua em caixa-alta condensada (wdth 75), form-text."
+      }
+    },
+    "shadows": [
+      {
+        "name": "paper",
+        "value": "0 1px 2px rgba(26, 22, 20, 0.07)",
+        "purpose": "Folhas sobre o fundo; única sombra do sistema."
+      },
+      {
+        "name": "field-focus",
+        "value": "0 0 0 1px var(--ink)",
+        "purpose": "Reforço da borda preta no campo focado."
+      }
+    ],
+    "motion": [
+      {
+        "name": "step",
+        "value": "steps(2, jump-end) 90ms",
+        "purpose": "Marcar bolinha, item de navegação ativo ou checkbox (keyframes mark: scale 0.82 → 1). Sem easing."
+      },
+      {
+        "name": "flash",
+        "value": "900ms steps(3, jump-none)",
+        "purpose": "Borda da folha pisca para tinta ao navegar até ela."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "animation: none",
+        "purpose": "Todas as animações desligadas com prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "mobile",
+        "value": "820px"
+      },
+      {
+        "name": "narrow",
+        "value": "380px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Folha-resumo",
+      "kind": "card",
+      "refersTo": "sheet",
+      "description": "Gabarito-resumo do semestre: cabeçalho em faixa salmão, linhas com marca de sincronismo, nota e bolinhas A/E/R; CR por último.",
+      "html": "<div class=\"ds-sheet\"><div class=\"ds-sheet-head\"><h3>Resumo do semestre</h3><span class=\"ds-legend\">A aprovado · E exame · R reprovado</span></div><button class=\"ds-row\"><span class=\"ds-tm\"></span><span class=\"ds-name\">Saúde do Adulto I</span><span class=\"ds-nota\">6.57</span><span class=\"ds-bubbles\"><span class=\"ds-b\">A</span><span class=\"ds-b ds-e\">E</span><span class=\"ds-b\">R</span></span></button><button class=\"ds-row ds-cr\"><span class=\"ds-tm\"></span><span class=\"ds-name\">CR do semestre</span><span class=\"ds-nota\">7.26</span><span class=\"ds-bubbles\"><span class=\"ds-b ds-a\">A</span><span class=\"ds-b\">E</span><span class=\"ds-b\">R</span></span></button></div>",
+      "css": ".ds-sheet{font-family: var(--font, 'Archivo', system-ui, sans-serif);background:var(--paper,#fff);border:1px solid var(--form-line,#f0c3b3);border-radius:3px;box-shadow:0 1px 2px rgba(26,22,20,.07);overflow:hidden;color:var(--ink,#1a1614);max-width:460px}.ds-sheet-head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:baseline;gap:4px 16px;padding:14px 18px 12px 30px;background:var(--form-tint,#fbe6de);border-bottom:1.5px solid var(--form,#e0643f)}.ds-sheet-head h3{margin:0;font-size:16px;font-weight:700}.ds-legend{font-size:11.5px;font-weight:600;color:var(--form-text,#b0401d);font-stretch: 75%; text-transform: uppercase; letter-spacing: 0.04em;}.ds-row{font-family: var(--font, 'Archivo', system-ui, sans-serif);display:grid;grid-template-columns:12px minmax(0,1fr) auto auto;align-items:center;gap:14px;width:100%;min-height:54px;padding:8px 18px 8px 0;border:0;border-top:1px solid var(--form-line,#f0c3b3);background:none;text-align:left;cursor:pointer;color:inherit}.ds-row:hover{background:var(--field,#fdf3ef)}.ds-row:focus-visible{outline:2px solid var(--ink,#1a1614);outline-offset:2px}.ds-row.ds-cr{border-top:1.5px solid var(--form,#e0643f)}.ds-cr .ds-name{font-weight:800}.ds-tm{width:12px;height:18px;background:var(--ink,#1a1614)}.ds-name{font-size:15px;font-weight:600}.ds-nota{font-size:18px;font-weight:700;font-variant-numeric:tabular-nums}.ds-bubbles{display:flex;gap:6px}.ds-b{display:grid;place-items:center;width:26px;height:26px;border:1.5px solid var(--form,#e0643f);border-radius:50%;color:var(--form-text,#b0401d);font-size:12px;font-weight:700;font-stretch:75%}.ds-b.ds-a{background:var(--ok,#17734a);border-color:var(--ok,#17734a);color:#fff}.ds-b.ds-e{background:var(--exam,#9a5a00);border-color:var(--exam,#9a5a00);color:#fff}"
+    },
+    {
+      "name": "Bolinhas A / E / R",
+      "kind": "custom",
+      "refersTo": "bubble",
+      "description": "Status como bolinha preenchida na cor do status; as demais ficam em contorno salmão.",
+      "html": "<div class=\"ds-bub\"><span class=\"ds-bb\">A</span><span class=\"ds-bb\">E</span><span class=\"ds-bb ds-r\" tabindex=\"0\">R</span></div>",
+      "css": ".ds-bub{font-family: var(--font, 'Archivo', system-ui, sans-serif);display:flex;gap:6px}.ds-bb{display:grid;place-items:center;width:30px;height:30px;border:1.5px solid var(--form,#e0643f);border-radius:50%;color:var(--form-text,#b0401d);font-size:13px;font-weight:700;font-stretch:75%;line-height:1}.ds-bb.ds-r{background:var(--fail,#a3123a);border-color:var(--fail,#a3123a);color:#fff;animation:ds-mark steps(2,jump-end) 90ms}.ds-bb:focus-visible{outline:2px solid var(--ink,#1a1614);outline-offset:2px}@keyframes ds-mark{from{transform:scale(.82)}to{transform:scale(1)}}"
+    },
+    {
+      "name": "Campo de nota",
+      "kind": "input",
+      "refersTo": "input-number",
+      "description": "Caixa de preenchimento com rótulo impresso em caixa-alta condensada e selo de peso.",
+      "html": "<div class=\"ds-ig\"><label class=\"ds-lbl\" for=\"ds-n\">Patologia <span class=\"ds-wb\">Peso 2.25</span></label><input id=\"ds-n\" class=\"ds-in\" type=\"number\" placeholder=\"0 a 10\" value=\"7\"></div>",
+      "css": ".ds-ig{font-family: var(--font, 'Archivo', system-ui, sans-serif);display:flex;flex-direction:column;max-width:220px}.ds-lbl{display:flex;justify-content:space-between;gap:8px;margin-bottom:6px;font-size:12.5px;font-weight:600;color:var(--form-text,#b0401d);font-stretch: 75%; text-transform: uppercase; letter-spacing: 0.04em;}.ds-wb{padding:1px 7px;border:1px solid var(--form-line-strong,#e7a48d);border-radius:2px;font-size:11px;font-weight:700;font-stretch: 75%; text-transform: uppercase; letter-spacing: 0.04em;}.ds-in{font-family: var(--font, 'Archivo', system-ui, sans-serif);width:100%;height:46px;padding:0 12px;background:var(--field,#fdf3ef);border:1.5px solid var(--form-line-strong,#e7a48d);border-radius:2px;font-size:18px;font-weight:600;font-variant-numeric:tabular-nums;color:var(--ink,#1a1614);appearance:textfield;-moz-appearance:textfield;box-sizing:border-box}.ds-in::placeholder{color:var(--placeholder,#93604f);font-weight:500}.ds-in:hover{border-color:var(--form,#e0643f)}.ds-in:focus{outline:none;border-color:var(--ink,#1a1614);background:#fff;box-shadow:0 0 0 1px var(--ink,#1a1614)}"
+    },
+    {
+      "name": "Navegação por bolinhas",
+      "kind": "nav",
+      "refersTo": "nav-bubble",
+      "description": "Semestres como bolinhas numeradas; o ativo é preenchido de tinta.",
+      "html": "<ul class=\"ds-nav\"><li><button class=\"ds-nb\"><span class=\"ds-nbub\">1</span>1º Semestre</button></li><li><button class=\"ds-nb ds-on\"><span class=\"ds-nbub\">2</span>2º Semestre</button></li><li><button class=\"ds-nb\"><span class=\"ds-nbub\">3</span>3º Semestre</button></li></ul>",
+      "css": ".ds-nav{font-family: var(--font, 'Archivo', system-ui, sans-serif);list-style:none;margin:0;padding:14px;display:flex;flex-direction:column;gap:2px;width:208px;background:var(--form-tint,#fbe6de)}.ds-nb{font-family: var(--font, 'Archivo', system-ui, sans-serif);width:100%;display:flex;align-items:center;gap:12px;padding:6px 10px;border:0;border-radius:2px;background:none;font-size:15px;font-weight:500;text-align:left;cursor:pointer;color:var(--ink,#1a1614)}.ds-nb:hover{background:rgba(224,100,63,.12)}.ds-nb:focus-visible{outline:2px solid var(--ink,#1a1614);outline-offset:2px}.ds-nbub{display:grid;place-items:center;width:28px;height:28px;border:1.5px solid var(--form,#e0643f);border-radius:50%;background:#fff;color:var(--form-text,#b0401d);font-size:13px;font-weight:700;font-stretch:75%}.ds-on{font-weight:700}.ds-on .ds-nbub{background:var(--ink,#1a1614);border-color:var(--ink,#1a1614);color:#fff}"
+    },
+    {
+      "name": "Alternador acertos / nota",
+      "kind": "chip",
+      "refersTo": "mode-btn-active",
+      "description": "Segmentado em caixa de preenchimento; a opção ativa é um bloco de tinta.",
+      "html": "<div class=\"ds-mt\"><button class=\"ds-mb ds-act\">Acertos</button><button class=\"ds-mb\">Nota</button></div>",
+      "css": ".ds-mt{font-family: var(--font, 'Archivo', system-ui, sans-serif);display:inline-flex;padding:3px;border:1px solid var(--form-line-strong,#e7a48d);border-radius:2px;background:var(--field,#fdf3ef)}.ds-mb{font-family: var(--font, 'Archivo', system-ui, sans-serif);min-height:34px;padding:0 14px;border:0;border-radius:1px;background:none;font-size:13.5px;font-weight:600;color:var(--form-text,#b0401d);cursor:pointer}.ds-mb:hover{color:var(--ink,#1a1614)}.ds-mb:focus-visible{outline:2px solid var(--ink,#1a1614);outline-offset:2px}.ds-mb.ds-act{background:var(--ink,#1a1614);color:#fff}"
+    },
+    {
+      "name": "Botão limpar notas",
+      "kind": "button",
+      "refersTo": "button-clear",
+      "description": "Ação destrutiva em contorno salmão; vira carmim no hover.",
+      "html": "<button class=\"ds-clr\">Limpar notas deste semestre</button>",
+      "css": ".ds-clr{font-family: var(--font, 'Archivo', system-ui, sans-serif);min-height:44px;padding:0 18px;border:1.5px solid var(--form-line-strong,#e7a48d);border-radius:2px;background:#fff;font-size:14px;font-weight:600;color:var(--form-text,#b0401d);cursor:pointer}.ds-clr:hover{border-color:var(--fail,#a3123a);color:var(--fail,#a3123a)}.ds-clr:focus-visible{outline:2px solid var(--ink,#1a1614);outline-offset:2px}"
+    },
+    {
+      "name": "Resultado com régua 0–10",
+      "kind": "custom",
+      "refersTo": "display",
+      "description": "Nota final em display, bolinhas, status e régua com cortes 5 e 7.",
+      "html": "<div class=\"ds-res\"><span class=\"ds-rl\">Nota final</span><span class=\"ds-rv\">7.26</span><span class=\"ds-rs\">Aprovado!</span><div class=\"ds-sc\"><div class=\"ds-tr\"></div><div class=\"ds-tk\" style=\"left:50%\"><span>5</span></div><div class=\"ds-tk\" style=\"left:70%\"><span>7</span></div><div class=\"ds-mk\" style=\"left:72.6%\"></div></div></div>",
+      "css": ".ds-res{font-family: var(--font, 'Archivo', system-ui, sans-serif);display:flex;flex-direction:column;gap:2px;padding:16px 20px 18px;border-top:1.5px dashed var(--form-line-strong,#e7a48d);background:#fff;max-width:360px;color:var(--ink,#1a1614)}.ds-rl{font-size:12px;font-weight:600;color:var(--form-text,#b0401d);font-stretch: 75%; text-transform: uppercase; letter-spacing: 0.04em;}.ds-rv{font-size:44px;font-weight:750;letter-spacing:-.02em;line-height:1.05;font-variant-numeric:tabular-nums}.ds-rs{font-size:14px;font-weight:600;color:var(--ok,#17734a)}.ds-sc{position:relative;height:30px;margin-top:10px}.ds-tr{position:absolute;inset:4px 0 auto;height:6px;border-radius:3px;background:linear-gradient(90deg,var(--fail-tint,#f6d6de) 0 50%,var(--exam-tint,#f8e7c8) 50% 70%,var(--ok-tint,#d9eee3) 70% 100%)}.ds-tk{position:absolute;top:0;width:0;height:14px;border-left:1.5px solid var(--form,#e0643f)}.ds-tk span{position:absolute;top:15px;transform:translateX(-50%);font-size:11px;font-weight:700;color:var(--form-text,#b0401d);font-stretch:75%}.ds-mk{position:absolute;top:-1px;width:3px;height:16px;margin-left:-1.5px;background:var(--ink,#1a1614);border-radius:1px}"
+    }
+  ],
+  "narrative": {
+    "northStar": "O Cartão-Resposta",
+    "overview": "Cada matéria é uma linha de uma folha óptica de respostas. O aluno preenche os campos; a calculadora preenche a bolinha A / E / R. Tudo o que é estrutura impressa do formulário (fios, caixas de preenchimento, contornos das bolinhas, rótulos em caixa-alta condensada) sai em tinta salmão de dropout, a mesma cor que as leitoras ópticas ignoram. Tudo o que é marcado, seja pelo aluno ou pela calculadora (valores digitados, bolinhas preenchidas, marcas de sincronismo pretas), sai em tinta preta. A cor de status existe apenas no status.\n\nA densidade é a de um formulário: folhas brancas sobre um fundo salmão quase imperceptível, cantos pequenos como papel cortado, fios finos no lugar de cartões flutuantes. A tela é de leitura rápida no celular, então a hierarquia vem do peso e da largura da Archivo, não de cor nem de volume.\n\nO sistema recusa o padrão \"cartão branco com pílula colorida de status\". Também não imita a identidade da UFMT: é um projeto de aluno, com aparência de papel de prova, não de portal institucional.",
+    "keyCharacteristics": [
+      "Duas tintas: salmão para o que é impresso, preto para o que é marcado.",
+      "Status como bolinha preenchida (A verde, E âmbar, R carmim), nunca como pílula.",
+      "Rótulos de formulário em Archivo condensada (wdth 75), caixa-alta, tinta salmão.",
+      "Folhas planas com cantos de 2–3px e fios de 1–1.5px.",
+      "Mudanças de estado em degraus (steps(2) 90ms), sem easing."
+    ],
+    "rules": [
+      {
+        "name": "The Two Inks Rule",
+        "body": "Salmão é o que a gráfica imprimiu; preto é o que alguém marcou. Se o elemento é estrutura, é salmão. Se é valor, escolha ou estado ativo, é preto.",
+        "section": "colors"
+      },
+      {
+        "name": "The Status-Only Rule",
+        "body": "Verde, âmbar e carmim aparecem só para comunicar Aprovado / Exame / Reprovado (e o carmim também para erro e ação destrutiva). Nenhuma decoração usa essas cores.",
+        "section": "colors"
+      },
+      {
+        "name": "The Dropout Legibility Rule",
+        "body": "O salmão de dropout (form) só traça linhas. Qualquer texto em salmão usa form-text.",
+        "section": "colors"
+      },
+      {
+        "name": "The Tabular Numbers Rule",
+        "body": "Todo número que se compara (notas, pesos, somas, acertos) usa `font-variant-numeric: tabular-nums`.",
+        "section": "typography"
+      },
+      {
+        "name": "The Printed Label Rule",
+        "body": "Caixa-alta condensada é reservada para texto que rotula um campo ou uma régua do formulário. Frases, avisos e checkboxes voltam à largura normal e caixa normal.",
+        "section": "typography"
+      },
+      {
+        "name": "The Paper Rule",
+        "body": "Uma folha nunca flutua. Nada de sombras difusas, desfoque ou elevação no hover; o hover muda a tinta, não a altura.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** desenhar toda estrutura nova (fios, contornos, rótulos) em salmão e todo valor ou estado marcado em tinta (#1a1614).",
+      "**Do** comunicar status com a bolinha preenchida e o texto na cor do status; os tons claros só na régua.",
+      "**Do** usar Archivo condensada (wdth 75) em caixa-alta para rótulos de campo e de régua, em form-text.",
+      "**Do** manter cantos em 2–3px e bordas em 1px ou 1.5px.",
+      "**Do** animar mudanças de estado em degraus (`steps(2, jump-end) 90ms`) e desligar animações com `prefers-reduced-motion`.",
+      "**Do** usar tracejado para o que é calculado, somente-leitura ou ainda em construção."
+    ],
+    "donts": [
+      "**Don't** usar pílulas ou cartões coloridos para status; o status é a bolinha.",
+      "**Don't** usar verde, âmbar ou carmim fora de status, erro ou ação destrutiva.",
+      "**Don't** escrever texto com o salmão de dropout (#e0643f); texto salmão é sempre form-text.",
+      "**Don't** adicionar sombras difusas, elevação no hover ou transições com easing.",
+      "**Don't** imitar a identidade visual da UFMT nem criar um tema escuro; o produto é papel claro."
+    ]
+  }
+}

@@ -283,67 +283,83 @@ document.addEventListener('DOMContentLoaded', () => {
     // Demais matérias e CR em construção
     // ==========================================================
 
-    // Saúde da Mulher II — pesos somam 10: Seminário 1.5 + Tutoria 3.5 + Prova de Módulo 5
-    // Prova (0-10): 20 fechadas (0.4 cada = 8 pontos, peso 4) + 2 abertas (1 ponto cada = 2 pontos, peso 1)
-    // O botão alterna entre informar acertos + abertas ou a nota da prova direto
-    let mulher2Mode = 'acertos';
+    // Provas de módulo do UC4: o botão alterna entre informar acertos nas fechadas + pontos
+    // das abertas ou a nota da prova (0-10) direto. Guarda o modo de cada matéria.
+    const provaModes = { mulher2: 'acertos', crianca2: 'acertos' };
+    const provaCalculators = {};
 
-    function getMulher2Prova() {
-        if (mulher2Mode === 'nota') {
-            return parseFloat(document.getElementById('mulher2-prova').value);
+    function getProva(prefix, pontosPorAcerto) {
+        if (provaModes[prefix] === 'nota') {
+            return parseFloat(document.getElementById(`${prefix}-prova`).value);
         }
-        const acertos = parseFloat(document.getElementById('mulher2-fechadas').value);
-        const abertas = parseFloat(document.getElementById('mulher2-abertas').value);
+        const acertos = parseFloat(document.getElementById(`${prefix}-fechadas`).value);
+        const abertas = parseFloat(document.getElementById(`${prefix}-abertas`).value);
         if (isNaN(acertos) && isNaN(abertas)) return NaN;
-        return (isNaN(acertos) ? 0 : acertos * 0.4) + (isNaN(abertas) ? 0 : abertas);
+        return (isNaN(acertos) ? 0 : acertos * pontosPorAcerto) + (isNaN(abertas) ? 0 : abertas);
     }
 
-    function calculateMulher2() {
-        const seminario = parseFloat(document.getElementById('mulher2-seminario').value);
-        const tutoria = parseFloat(document.getElementById('mulher2-tutoria').value);
-        const prova = getMulher2Prova();
-
-        document.getElementById('mulher2-prova-preview').textContent = isNaN(prova) ? '—' : prova.toFixed(2);
-
-        const allEmpty = [seminario, tutoria, prova].every(v => isNaN(v));
-
-        // Σ(nota × peso) / 10
-        const nota = (
-            (isNaN(seminario) ? 0 : seminario) * 1.5 +
-            (isNaN(tutoria) ? 0 : tutoria) * 3.5 +
-            (isNaN(prova) ? 0 : prova) * 5
-        ) / 10;
-
-        setSubjectResult('mulher2-result', 'mulher2-status', null, nota, allEmpty);
-    }
-
-    function setMulher2Mode(mode) {
-        mulher2Mode = mode;
-        document.querySelectorAll('#mulher2-mode-toggle .mode-btn').forEach(btn => {
+    function setProvaMode(prefix, mode) {
+        provaModes[prefix] = mode;
+        document.querySelectorAll(`#${prefix}-mode-toggle .mode-btn`).forEach(btn => {
             const active = btn.dataset.mode === mode;
             btn.classList.toggle('active', active);
             btn.setAttribute('aria-pressed', active);
         });
-        document.querySelectorAll('[data-mulher2-mode]').forEach(el => {
-            el.style.display = el.dataset.mulher2Mode === mode ? '' : 'none';
+        document.querySelectorAll(`[data-${prefix}-mode]`).forEach(el => {
+            el.style.display = el.getAttribute(`data-${prefix}-mode`) === mode ? '' : 'none';
         });
-        calculateMulher2();
+        provaCalculators[prefix]();
     }
 
-    document.querySelectorAll('#mulher2-mode-toggle .mode-btn').forEach(btn =>
-        btn.addEventListener('click', () => {
-            setMulher2Mode(btn.dataset.mode);
-            saveGrades();
-        }));
+    // Média de matéria do UC4: Σ(nota × peso) / 10, com a prova de módulo peso 5
+    function calculateUC4Subject(prefix, pontosPorAcerto, pesos) {
+        const prova = getProva(prefix, pontosPorAcerto);
+        document.getElementById(`${prefix}-prova-preview`).textContent = isNaN(prova) ? '—' : prova.toFixed(2);
+
+        const values = [prova];
+        let score = (isNaN(prova) ? 0 : prova) * 5;
+        for (const [suffix, peso] of Object.entries(pesos)) {
+            const v = parseFloat(document.getElementById(`${prefix}-${suffix}`).value);
+            values.push(v);
+            score += (isNaN(v) ? 0 : v) * peso;
+        }
+
+        setSubjectResult(`${prefix}-result`, `${prefix}-status`, null, score / 10, values.every(v => isNaN(v)));
+    }
+
+    // Saúde da Mulher II — pesos somam 10: Seminário 1.5 + Tutoria 3.5 + Prova de Módulo 5
+    // Prova (0-10): 20 fechadas (0.4 cada = 8 pontos) + 2 abertas (1 ponto cada = 2 pontos)
+    function calculateMulher2() {
+        calculateUC4Subject('mulher2', 0.4, { seminario: 1.5, tutoria: 3.5 });
+    }
+
+    // Saúde da Criança II — pesos somam 10: Seminário 1.5 + Tutoria 3 + Prática 0.5 + Prova de Módulo 5
+    // Prova (0-10): 25 fechadas (0.25 cada = 6.25 pontos) + 10 abertas (0.375 cada = 3.75 pontos)
+    function calculateCrianca2() {
+        calculateUC4Subject('crianca2', 0.25, { seminario: 1.5, tutoria: 3, pratica: 0.5 });
+    }
+
+    provaCalculators.mulher2 = calculateMulher2;
+    provaCalculators.crianca2 = calculateCrianca2;
+
+    Object.keys(provaModes).forEach(prefix => {
+        document.querySelectorAll(`#${prefix}-mode-toggle .mode-btn`).forEach(btn =>
+            btn.addEventListener('click', () => {
+                setProvaMode(prefix, btn.dataset.mode);
+                saveGrades();
+            }));
+    });
     ['mulher2-seminario', 'mulher2-tutoria', 'mulher2-fechadas', 'mulher2-abertas', 'mulher2-prova'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateMulher2));
+    ['crianca2-seminario', 'crianca2-tutoria', 'crianca2-pratica', 'crianca2-fechadas', 'crianca2-abertas', 'crianca2-prova'].forEach(id =>
+        document.getElementById(id).addEventListener('input', calculateCrianca2));
 
     // Recalcula todas as matérias (e o CR) de cada semestre
     const semesterCalculators = {
         '1': () => { calculateLocomotor(); calculateNeuro(); },
         '2': () => { calculateCardio(); calculateDigest(); },
         '3': () => { calculateBAD(); calculateAdulto(); calculateMulher(); calculateCrianca(); },
-        '4': () => calculateMulher2()
+        '4': () => { calculateMulher2(); calculateCrianca2(); }
     };
 
     // ==========================================================
@@ -366,7 +382,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
         try {
-            localStorage.setItem(STORAGE_KEY, JSON.stringify({ values, mulher2Mode }));
+            localStorage.setItem(STORAGE_KEY, JSON.stringify({ values, provaModes }));
         } catch (e) {
             // Armazenamento indisponível (ex.: aba anônima) — a calculadora segue funcionando
         }
@@ -390,7 +406,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 input.value = saved;
             }
         });
-        if (data.mulher2Mode === 'nota') setMulher2Mode('nota');
+        // Versões antigas salvavam só o modo de Saúde da Mulher II em mulher2Mode
+        const savedModes = data.provaModes || { mulher2: data.mulher2Mode };
+        Object.keys(provaModes).forEach(prefix => {
+            if (savedModes[prefix] === 'nota') setProvaMode(prefix, 'nota');
+        });
     }
 
     const contentArea = document.querySelector('.content-area');

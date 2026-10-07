@@ -10,7 +10,7 @@ Calculadora web de médias e CR (Coeficiente de Rendimento) para estudantes de M
 - **1º Semestre (UC1)** — Locomotor + Neuro + Interação Comunitária
 - **2º Semestre (UC2)** — Cardiorespiratório + Digestório & Urogenital + IC + Antropologia
 - **3º Semestre (UC3)** — B.A.D., Saúde do Adulto I, Saúde da Mulher I, Saúde da Criança e do Adolescente + IC
-- **4º Semestre (UC4)** — Saúde da Mulher II; demais matérias e CR em construção
+- **4º Semestre (UC4)** — Saúde da Mulher II e Saúde da Criança II; demais matérias e CR em construção
 - Cálculo em tempo real conforme as notas são digitadas
 - Notas salvas automaticamente no navegador (`localStorage`), com botão para limpar cada semestre
 - CR auto-preenchido a partir das médias das matérias
@@ -122,6 +122,23 @@ Nota da prova = Acertos nas fechadas × 0,4 + Abertas
 ```
 
 Um botão alterna entre informar acertos + abertas ou digitar a nota da prova direto.
+
+**Saúde da Criança II** — pesos somam 10:
+
+| Item            | Peso |
+|-----------------|-----:|
+| Prova de Módulo |   5  |
+| Tutoria         |   3  |
+| Seminário       |  1,5 |
+| Prática         |  0,5 |
+
+A prova de módulo (0–10) tem 25 questões fechadas (0,25 cada = 6,25) e 10 abertas (0,375 cada = 3,75):
+
+```
+Nota da prova = Acertos nas fechadas × 0,25 + Abertas
+```
+
+O mesmo botão permite digitar a nota da prova direto. A forma de avaliação da prática ainda não foi definida. Os pesos da prova são baseados na prova da turma passada e podem mudar — a página exibe um aviso sobre isso.
 
 Demais matérias e CR: em construção.
 
