@@ -128,11 +128,11 @@ Um botão alterna entre informar acertos + abertas ou digitar a nota da prova di
 | Item            | Peso |
 |-----------------|-----:|
 | Prova de Módulo |   5  |
-| Tutoria         |   3  |
-| Seminário       |  1,5 |
+| Tutoria         |  3,5 |
+| Seminário       |   1  |
 | Prática         |  0,5 |
 
-A prova de módulo (0–10) tem 25 questões fechadas (0,25 cada = 6,25) e 10 abertas (0,375 cada = 3,75):
+A prova de módulo (0–10) tem 24 questões fechadas (0,25 cada = 6) e 2 abertas de 4 letras (0,5 por letra = 4):
 
 ```
 Nota da prova = Acertos nas fechadas × 0,25 + Abertas

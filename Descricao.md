@@ -98,12 +98,12 @@ Saúde da Mulher II:
     -Um botão alterna entre informar acertos + abertas OU digitar direto a nota da prova
 
 Saúde da Criança II:
-  -Seminário: 1,5 peso
-  -Tutoria: 3 peso
+  -Seminário: 1 peso
+  -Tutoria: 3,5 peso
   -Prática: 0,5 peso (forma de avaliação ainda não definida, nota de 0 - 10)
   -Prova de Módulo: 5 peso (nota de 0 - 10):
-    -25 questões fechadas valendo 0,25 cada (6,25 no total)
-    -10 questões abertas valendo 0,375 cada (3,75 no total)
+    -24 questões fechadas valendo 0,25 cada (6 no total)
+    -2 questões abertas com 4 letras cada, valendo 0,5 por letra (2 por aberta, 4 no total)
     -Nota = (Acertos nas fechadas x 0,25) + Abertas
     -Um botão alterna entre informar acertos + abertas OU digitar direto a nota da prova (objetiva + discursiva)
 

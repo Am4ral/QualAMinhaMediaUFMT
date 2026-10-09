@@ -334,7 +334,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Saúde da Criança II — pesos somam 10: Seminário 1 + Tutoria 3.5 + Prática 0.5 + Prova de Módulo 5
-    // Prova (0-10): 25 fechadas (0.25 cada = 6.25 pontos) + 10 abertas (0.375 cada = 3.75 pontos)
+    // Prova (0-10): 24 fechadas (0.25 cada = 6 pontos) + 2 abertas de 4 letras (0.5 cada letra = 4 pontos)
     function calculateCrianca2() {
         calculateUC4Subject('crianca2', 0.25, { seminario: 1, tutoria: 3.5, pratica: 0.5 });
     }
