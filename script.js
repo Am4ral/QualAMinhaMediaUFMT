@@ -286,7 +286,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // Médias das matérias com calculadora própria (SM II e SC II): valor e se está completa
     const uc4Subjects = {
         mulher2: { value: NaN, complete: false },
-        crianca2: { value: NaN, complete: false }
+        crianca2: { value: NaN, complete: false },
+        adulto2: { value: NaN, complete: false }
     };
 
     // CR = (CR anterior × 11 + SM II + SC II + SA II + IC IV + SS II + ADT) / 17
@@ -301,7 +302,7 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: 'CR anterior', value: readInput('uc4-cr-anterior'), peso: 11, complete: true },
             { name: 'SM II', value: uc4Subjects.mulher2.value, peso: 1, complete: uc4Subjects.mulher2.complete },
             { name: 'SC II', value: uc4Subjects.crianca2.value, peso: 1, complete: uc4Subjects.crianca2.complete },
-            { name: 'SA II', value: readInput('uc4-cr-adulto2'), peso: 1, complete: true },
+            { name: 'SA II', value: uc4Subjects.adulto2.value, peso: 1, complete: uc4Subjects.adulto2.complete },
             { name: 'IC IV', value: readInput('uc4-cr-ic4'), peso: 1, complete: true },
             { name: 'SS II', value: readInput('uc4-cr-ss2'), peso: 1, complete: true },
             { name: 'ADT', value: readInput('uc4-cr-adt'), peso: 1, complete: true }
@@ -339,14 +340,14 @@ document.addEventListener('DOMContentLoaded', () => {
             statusEl.textContent = `Projetado — notas incompletas em ${partial.map(e => e.name).join(', ')}`;
             statusEl.style.backgroundColor = neutral;
         } else {
-            labelEl.textContent = 'CR definitivo';
+            labelEl.textContent = 'CR';
             applyStatus(statusEl, cr);
         }
     }
 
     // Provas de módulo do UC4: o botão alterna entre informar acertos nas fechadas + pontos
     // das abertas ou a nota da prova (0-10) direto. Guarda o modo de cada matéria.
-    const provaModes = { mulher2: 'acertos', crianca2: 'acertos' };
+    const provaModes = { mulher2: 'acertos', crianca2: 'acertos', 'adulto2-modulo': 'acertos', 'adulto2-btca-teorica': 'acertos' };
     const provaCalculators = {};
 
     function getProva(prefix, pontosPorAcerto) {
@@ -405,6 +406,91 @@ document.addEventListener('DOMContentLoaded', () => {
         calculateUC4Subject('crianca2', 0.25, { seminario: 1, tutoria: 3.5, pratica: 0.5 });
     }
 
+    // Saúde do Adulto II — pesos somam 10:
+    // OSCE 1 (+0.5 de bônus, máx. 10) + Preceptoria 1 + Módulo 2 + Tutorias 3 + Seminários 1 + BTCA Teórica 1 + BTCA Prática 1
+    // Módulo (25 questões) e BTCA Teórica (20 questões) podem ser informados por acertos ou pela nota;
+    // os dois campos de cada prova ficam sincronizados e só a nota (0-10) entra na média.
+    const adulto2Exams = { 'adulto2-modulo': 25, 'adulto2-btca-teorica': 20 };
+
+    function readGrade(id) {
+        const v = parseFloat(document.getElementById(id).value);
+        return isNaN(v) || v < 0 || v > 10 ? NaN : v;
+    }
+
+    // Mantém acertos e nota representando a mesma avaliação
+    function syncAdulto2Exam(prefix, from) {
+        const total = adulto2Exams[prefix];
+        const acertosEl = document.getElementById(`${prefix}-acertos`);
+        const notaEl = document.getElementById(`${prefix}-nota`);
+        const hint = document.getElementById(`${prefix}-nota-hint`);
+        hint.textContent = 'Nota de 0 a 10';
+        if (from === 'acertos') {
+            const a = parseFloat(acertosEl.value);
+            notaEl.value = Number.isInteger(a) && a >= 0 && a <= total
+                ? String(Math.round((a / total) * 10 * 1e6) / 1e6) : '';
+        } else {
+            const n = parseFloat(notaEl.value);
+            const a = (n / 10) * total;
+            if (!isNaN(n) && Math.abs(a - Math.round(a)) < 1e-6) {
+                acertosEl.value = String(Math.round(a));
+            } else {
+                // Nota sem nº inteiro de acertos equivalente: mantém a nota original
+                acertosEl.value = '';
+                if (!isNaN(n)) hint.textContent = `Equivale a ${a.toFixed(2)} acertos — não é inteiro, a nota ${n} foi mantida`;
+            }
+        }
+        calculateAdulto2();
+    }
+
+    function calculateAdulto2() {
+        const osceBase = readGrade('adulto2-osce');
+        const extra = document.getElementById('adulto2-extra').checked;
+        const osce = isNaN(osceBase) ? NaN : Math.min(10, osceBase + (extra ? 0.5 : 0));
+        document.getElementById('adulto2-osce-preview').textContent = isNaN(osce) ? '—' : osce.toFixed(2);
+
+        const modulo = readGrade('adulto2-modulo-nota');
+        const btcaTeorica = readGrade('adulto2-btca-teorica-nota');
+        Object.keys(adulto2Exams).forEach(prefix => {
+            const n = readGrade(`${prefix}-nota`);
+            document.getElementById(`${prefix}-preview`).textContent = isNaN(n) ? '—' : n.toFixed(2);
+        });
+
+        const components = [
+            { name: 'OSCE', value: osce, peso: 1 },
+            { name: 'Preceptoria', value: readGrade('adulto2-preceptoria'), peso: 1 },
+            { name: 'Módulo', value: modulo, peso: 2 },
+            { name: 'Tutorias', value: readGrade('adulto2-tutoria'), peso: 3 },
+            { name: 'Seminários', value: readGrade('adulto2-seminario'), peso: 1 },
+            { name: 'BTCA Teórica', value: btcaTeorica, peso: 1 },
+            { name: 'BTCA Prática', value: readGrade('adulto2-btca-pratica'), peso: 1 }
+        ];
+        const filled = components.filter(c => !isNaN(c.value));
+        const missing = components.filter(c => isNaN(c.value));
+        const allEmpty = filled.length === 0;
+        // Campos vazios não valem zero: parcial = média dos componentes já preenchidos (pesos renormalizados)
+        const pesoFilled = filled.reduce((t, c) => t + c.peso, 0);
+        const nota = allEmpty ? 0 : filled.reduce((t, c) => t + c.value * c.peso, 0) / pesoFilled;
+
+        setSubjectResult('adulto2-result', 'adulto2-status', 'uc4-cr-adulto2', nota, allEmpty);
+        if (!allEmpty && missing.length) {
+            const statusEl = document.getElementById('adulto2-status');
+            statusEl.textContent = `Parcial — faltam: ${missing.map(c => c.name).join(', ')}`;
+            statusEl.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
+        }
+        uc4Subjects.adulto2 = { value: allEmpty ? NaN : nota, complete: !allEmpty && !missing.length };
+        calculateCR_UC4();
+    }
+
+    provaCalculators['adulto2-modulo'] = calculateAdulto2;
+    provaCalculators['adulto2-btca-teorica'] = calculateAdulto2;
+    Object.keys(adulto2Exams).forEach(prefix => {
+        document.getElementById(`${prefix}-acertos`).addEventListener('input', () => syncAdulto2Exam(prefix, 'acertos'));
+        document.getElementById(`${prefix}-nota`).addEventListener('input', () => syncAdulto2Exam(prefix, 'nota'));
+    });
+    ['adulto2-osce', 'adulto2-preceptoria', 'adulto2-tutoria', 'adulto2-seminario', 'adulto2-btca-pratica'].forEach(id =>
+        document.getElementById(id).addEventListener('input', calculateAdulto2));
+    document.getElementById('adulto2-extra').addEventListener('change', calculateAdulto2);
+
     provaCalculators.mulher2 = calculateMulher2;
     provaCalculators.crianca2 = calculateCrianca2;
 
@@ -420,7 +506,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ['crianca2-seminario', 'crianca2-tutoria', 'crianca2-pratica', 'crianca2-fechadas', 'crianca2-abertas', 'crianca2-prova'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateCrianca2));
 
-    ['uc4-cr-anterior', 'uc4-cr-adulto2', 'uc4-cr-ic4', 'uc4-cr-ss2', 'uc4-cr-adt'].forEach(id =>
+    ['uc4-cr-anterior', 'uc4-cr-ic4', 'uc4-cr-ss2', 'uc4-cr-adt'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateCR_UC4));
 
     // Recalcula todas as matérias (e o CR) de cada semestre
@@ -428,7 +514,7 @@ document.addEventListener('DOMContentLoaded', () => {
         '1': () => { calculateLocomotor(); calculateNeuro(); },
         '2': () => { calculateCardio(); calculateDigest(); },
         '3': () => { calculateBAD(); calculateAdulto(); calculateMulher(); calculateCrianca(); },
-        '4': () => { calculateMulher2(); calculateCrianca2(); }
+        '4': () => { calculateMulher2(); calculateCrianca2(); calculateAdulto2(); }
     };
 
     // ==========================================================

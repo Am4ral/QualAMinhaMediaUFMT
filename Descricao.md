@@ -107,15 +107,25 @@ Saúde da Criança II:
     -Nota = (Acertos nas fechadas x 0,25) + Abertas
     -Um botão alterna entre informar acertos + abertas OU digitar direto a nota da prova (objetiva + discursiva)
 
-Saúde do Adulto II, Interação Comunitária IV, Sistemas Sensoriais II e Atividades Dirigidas de Tutoria (ADT):
+Saúde do Adulto II (pesos somam 10):
+  -OSCE: 1 peso (média das 5 bancadas, nota 0 - 10; +0,5 com 100% de presença nas monitorias, máx. 10)
+  -Preceptoria: 1 peso (média das preceptorias)
+  -Prova do Módulo: 2 peso (25 questões de 0,4: nota = acertos/25 x 10; botão alterna acertos OU nota direta, os campos ficam sincronizados)
+  -Tutorias: 3 peso (média das tutorias)
+  -Seminários: 1 peso (média dos seminários)
+  -BTCA Teórica: 1 peso (20 questões de 0,5: nota = acertos/20 x 10; mesmo botão de alternância)
+  -BTCA Prática: 1 peso (nota direta)
+  -Campos vazios não valem zero: com componentes faltando a nota é parcial (média dos preenchidos) e o CR sai como projetado
+
+Interação Comunitária IV, Saúde e Sociedade II e Apoio Diagnóstico Terapêutico (ADT):
   - Sem calculadora própria: o usuário digita direto a média final (0 - 10) no campo do CR
 
 CR (Média Geral)
 Pesos: CR anterior 11 + SM II 1 + SC II 1 + SA II 1 + IC IV 1 + SS II 1 + ADT 1 = 17 (sem usar carga horária)
 CR = ((CR anterior x 11) + SM II + SC II + SA II + IC IV + SS II + ADT)/ 17
-  - SM II e SC II vêm automaticamente das calculadoras; o CR recalcula a cada alteração
+  - SM II, SC II e SA II vêm automaticamente das calculadoras; o CR recalcula a cada alteração
   - Campos vazios não valem zero: com alguma média pendente o CR não é exibido
-  - Com notas incompletas em alguma matéria, o resultado aparece como CR projetado; só é CR definitivo com tudo preenchido
+  - Com notas incompletas em alguma matéria, o resultado aparece como CR projetado; só é CR com tudo preenchido
   - Exibido com 2 casas decimais (valores intermediários mantêm a precisão)
 
 
