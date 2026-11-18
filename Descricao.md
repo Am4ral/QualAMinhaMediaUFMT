@@ -107,7 +107,16 @@ Saúde da Criança II:
     -Nota = (Acertos nas fechadas x 0,25) + Abertas
     -Um botão alterna entre informar acertos + abertas OU digitar direto a nota da prova (objetiva + discursiva)
 
-Demais matérias e CR: Em construção
+Saúde do Adulto II, Interação Comunitária IV, Sistemas Sensoriais II e Atividades Dirigidas de Tutoria (ADT):
+  - Sem calculadora própria: o usuário digita direto a média final (0 - 10) no campo do CR
+
+CR (Média Geral)
+Pesos: CR anterior 11 + SM II 1 + SC II 1 + SA II 1 + IC IV 1 + SS II 1 + ADT 1 = 17 (sem usar carga horária)
+CR = ((CR anterior x 11) + SM II + SC II + SA II + IC IV + SS II + ADT)/ 17
+  - SM II e SC II vêm automaticamente das calculadoras; o CR recalcula a cada alteração
+  - Campos vazios não valem zero: com alguma média pendente o CR não é exibido
+  - Com notas incompletas em alguma matéria, o resultado aparece como CR projetado; só é CR definitivo com tudo preenchido
+  - Exibido com 2 casas decimais (valores intermediários mantêm a precisão)
 
 
 

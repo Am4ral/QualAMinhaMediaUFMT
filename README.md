@@ -10,7 +10,7 @@ Calculadora web de médias e CR (Coeficiente de Rendimento) para estudantes de M
 - **1º Semestre (UC1)** — Locomotor + Neuro + Interação Comunitária
 - **2º Semestre (UC2)** — Cardiorespiratório + Digestório & Urogenital + IC + Antropologia
 - **3º Semestre (UC3)** — B.A.D., Saúde do Adulto I, Saúde da Mulher I, Saúde da Criança e do Adolescente + IC
-- **4º Semestre (UC4)** — Saúde da Mulher II e Saúde da Criança II; demais matérias e CR em construção
+- **4º Semestre (UC4)** — Saúde da Mulher II, Saúde da Criança II e CR (calculadora de CR com pesos fixos)
 - Cálculo em tempo real conforme as notas são digitadas
 - Notas salvas automaticamente no navegador (`localStorage`), com botão para limpar cada semestre
 - CR auto-preenchido a partir das médias das matérias
@@ -140,7 +140,23 @@ Nota da prova = Acertos nas fechadas × 0,25 + Abertas
 
 O mesmo botão permite digitar a nota da prova direto. A forma de avaliação da prática ainda não foi definida. Os pesos da prova são baseados na prova da turma passada e podem mudar — a página exibe um aviso sobre isso.
 
-Demais matérias e CR: em construção.
+**CR da UC4** — soma dos pesos 17, sem usar carga horária:
+
+| Item                              | Peso |
+|-----------------------------------|-----:|
+| CR anterior                       |  11  |
+| Saúde da Mulher II (SM II)        |   1  |
+| Saúde da Criança II (SC II)       |   1  |
+| Saúde do Adulto II (SA II)        |   1  |
+| Interação Comunitária IV (IC IV)  |   1  |
+| Sistemas Sensoriais II (SS II)    |   1  |
+| Ativ. Dirigidas de Tutoria (ADT)  |   1  |
+
+```
+CR = (CR anterior × 11 + SM II + SC II + SA II + IC IV + SS II + ADT) / 17
+```
+
+SM II e SC II são preenchidas automaticamente pelas calculadoras; SA II, IC IV, SS II e ADT são digitadas direto (0–10). Campos vazios não valem zero: com média pendente o CR não é exibido, e com notas incompletas o resultado aparece como **CR projetado** (só é **CR definitivo** com tudo preenchido).
 
 ## Notas
 

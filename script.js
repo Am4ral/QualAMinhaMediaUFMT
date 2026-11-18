@@ -280,8 +280,69 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // ==========================================================
     // UC4 — 4º Semestre
-    // Demais matérias e CR em construção
+    // CR = (CR anterior × 11 + SM II + SC II + SA II + IC IV + SS II + ADT) / 17
     // ==========================================================
+
+    // Médias das matérias com calculadora própria (SM II e SC II): valor e se está completa
+    const uc4Subjects = {
+        mulher2: { value: NaN, complete: false },
+        crianca2: { value: NaN, complete: false }
+    };
+
+    // CR = (CR anterior × 11 + SM II + SC II + SA II + IC IV + SS II + ADT) / 17
+    // Pesos fixos, sem carga horária. Campos vazios nunca valem zero:
+    // com média pendente não há CR; com notas parciais o resultado é um CR projetado.
+    function calculateCR_UC4() {
+        const readInput = id => {
+            const v = parseFloat(document.getElementById(id).value);
+            return isNaN(v) ? NaN : v;
+        };
+        const entries = [
+            { name: 'CR anterior', value: readInput('uc4-cr-anterior'), peso: 11, complete: true },
+            { name: 'SM II', value: uc4Subjects.mulher2.value, peso: 1, complete: uc4Subjects.mulher2.complete },
+            { name: 'SC II', value: uc4Subjects.crianca2.value, peso: 1, complete: uc4Subjects.crianca2.complete },
+            { name: 'SA II', value: readInput('uc4-cr-adulto2'), peso: 1, complete: true },
+            { name: 'IC IV', value: readInput('uc4-cr-ic4'), peso: 1, complete: true },
+            { name: 'SS II', value: readInput('uc4-cr-ss2'), peso: 1, complete: true },
+            { name: 'ADT', value: readInput('uc4-cr-adt'), peso: 1, complete: true }
+        ];
+        const TOTAL_PESO = 17;
+
+        const labelEl = document.getElementById('uc4-cr-label');
+        const resultEl = document.getElementById('uc4-cr-result');
+        const statusEl = document.getElementById('uc4-cr-status');
+        const neutral = 'rgba(255, 255, 255, 0.2)';
+
+        labelEl.textContent = 'CR';
+        if (entries.every(e => isNaN(e.value))) {
+            resetResult(resultEl, statusEl);
+            return;
+        }
+
+        const invalid = entries.filter(e => !isNaN(e.value) && (e.value < 0 || e.value > 10));
+        const pending = entries.filter(e => isNaN(e.value));
+        if (invalid.length || pending.length) {
+            resultEl.textContent = '—';
+            statusEl.style.backgroundColor = neutral;
+            statusEl.textContent = invalid.length
+                ? `Valor fora de 0–10: ${invalid.map(e => e.name).join(', ')}`
+                : `Pendente: ${pending.map(e => e.name).join(', ')}`;
+            return;
+        }
+
+        const cr = entries.reduce((soma, e) => soma + e.value * e.peso, 0) / TOTAL_PESO;
+        resultEl.textContent = cr.toFixed(2);
+
+        const partial = entries.filter(e => !e.complete);
+        if (partial.length) {
+            labelEl.textContent = 'CR projetado';
+            statusEl.textContent = `Projetado — notas incompletas em ${partial.map(e => e.name).join(', ')}`;
+            statusEl.style.backgroundColor = neutral;
+        } else {
+            labelEl.textContent = 'CR definitivo';
+            applyStatus(statusEl, cr);
+        }
+    }
 
     // Provas de módulo do UC4: o botão alterna entre informar acertos nas fechadas + pontos
     // das abertas ou a nota da prova (0-10) direto. Guarda o modo de cada matéria.
@@ -324,7 +385,12 @@ document.addEventListener('DOMContentLoaded', () => {
             score += (isNaN(v) ? 0 : v) * peso;
         }
 
-        setSubjectResult(`${prefix}-result`, `${prefix}-status`, null, score / 10, values.every(v => isNaN(v)));
+        const allEmpty = values.every(v => isNaN(v));
+        const nota = score / 10;
+        setSubjectResult(`${prefix}-result`, `${prefix}-status`, `uc4-cr-${prefix}`, nota, allEmpty);
+        // Média só é definitiva quando todos os componentes foram preenchidos
+        uc4Subjects[prefix] = { value: allEmpty ? NaN : nota, complete: values.every(v => !isNaN(v)) };
+        calculateCR_UC4();
     }
 
     // Saúde da Mulher II — pesos somam 10: Seminário 1.5 + Tutoria 3.5 + Prova de Módulo 5
@@ -353,6 +419,9 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(id).addEventListener('input', calculateMulher2));
     ['crianca2-seminario', 'crianca2-tutoria', 'crianca2-pratica', 'crianca2-fechadas', 'crianca2-abertas', 'crianca2-prova'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateCrianca2));
+
+    ['uc4-cr-anterior', 'uc4-cr-adulto2', 'uc4-cr-ic4', 'uc4-cr-ss2', 'uc4-cr-adt'].forEach(id =>
+        document.getElementById(id).addEventListener('input', calculateCR_UC4));
 
     // Recalcula todas as matérias (e o CR) de cada semestre
     const semesterCalculators = {

@@ -107,7 +107,7 @@
                                     <span class="home-badge partial">Parcial</span>
                                 </span>
                                 <span class="home-card-uc">UC4</span>
-                                <span class="home-card-subjects">Saúde da Mulher II — demais matérias em construção</span>
+                                <span class="home-card-subjects">Saúde da Mulher II, Saúde da Criança II e CR</span>
                             </button>
                             <button class="home-card" data-semester="5">
                                 <span class="home-card-top">
@@ -723,17 +723,50 @@
                                 <div class="result-status" id="crianca2-status">Aguardando notas...</div>
                             </div>
                         </div>
+                    </div>
 
-                        <!-- Demais matérias -->
-                        <div class="calculator-card construction-card">
-                            <div class="card-header">
-                                <h3>Demais matérias e CR</h3>
-                                <p>Outras matérias do 4º semestre.</p>
+                    <!-- CR UC4 -->
+                    <div class="calculator-card cr-card">
+                        <div class="card-header">
+                            <h3>CR (Coeficiente de Rendimento)</h3>
+                            <p>CR = (CR Anterior × 11 + SM II + SC II + SA II + IC IV + SS II + ADT) / 17</p>
+                        </div>
+                        <form class="uc-form">
+                            <div class="input-group">
+                                <label for="uc4-cr-anterior">CR Anterior <span class="weight-badge">×11</span></label>
+                                <input type="number" id="uc4-cr-anterior" step="0.01" min="0" max="10" placeholder="0.00">
+                                <small class="field-note">Seu CR acumulado antes da UC4</small>
                             </div>
-                            <div class="empty-state">
-                                <h3>Em construção</h3>
-                                <p>Os cálculos das demais matérias e do CR ainda estão sendo desenvolvidos.</p>
+                            <div class="input-group">
+                                <label for="uc4-cr-mulher2">Saúde da Mulher II <span class="weight-badge">Peso 1</span></label>
+                                <input type="number" id="uc4-cr-mulher2" step="0.01" min="0" max="10" placeholder="Automático" readonly>
                             </div>
+                            <div class="input-group">
+                                <label for="uc4-cr-crianca2">Saúde da Criança II <span class="weight-badge">Peso 1</span></label>
+                                <input type="number" id="uc4-cr-crianca2" step="0.01" min="0" max="10" placeholder="Automático" readonly>
+                            </div>
+                            <div class="input-group">
+                                <label for="uc4-cr-adulto2">Saúde do Adulto II <span class="weight-badge">Peso 1</span></label>
+                                <input type="number" id="uc4-cr-adulto2" step="0.01" min="0" max="10" placeholder="0.00">
+                                <small class="field-note">Média final (sem calculadora própria ainda)</small>
+                            </div>
+                            <div class="input-group">
+                                <label for="uc4-cr-ic4">Interação Comunitária IV <span class="weight-badge">Peso 1</span></label>
+                                <input type="number" id="uc4-cr-ic4" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="uc4-cr-ss2">Sistemas Sensoriais II <span class="weight-badge">Peso 1</span></label>
+                                <input type="number" id="uc4-cr-ss2" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                            <div class="input-group">
+                                <label for="uc4-cr-adt">Atividades Dirigidas de Tutoria <span class="weight-badge">Peso 1</span></label>
+                                <input type="number" id="uc4-cr-adt" step="0.01" min="0" max="10" placeholder="0.00">
+                            </div>
+                        </form>
+                        <div class="result-section">
+                            <div class="result-label" id="uc4-cr-label">CR</div>
+                            <div class="result-value" id="uc4-cr-result">0.00</div>
+                            <div class="result-status" id="uc4-cr-status">Aguardando notas...</div>
                         </div>
                     </div>
 
