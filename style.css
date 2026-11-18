@@ -126,6 +126,8 @@ body {
 }
 
 .content-area {
+    container-type: inline-size;
+    container-name: content;
     flex: 1;
     padding: 32px;
     overflow-y: auto;
@@ -140,8 +142,8 @@ body {
     max-width: 800px;
     margin: 0 auto;
     display: grid;
-    grid-template-columns: 1fr 300px;
-    gap: 40px;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+    gap: 32px;
 }
 
 .card-header {
@@ -175,9 +177,12 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    gap: 4px 8px;
 }
 
 .weight-badge {
+    white-space: nowrap;
     background-color: #e3eaf4;
     color: var(--primary-dark);
     padding: 2px 6px;
@@ -187,6 +192,8 @@ body {
 }
 
 .input-group input {
+    width: 100%;
+    min-width: 0;
     padding: 12px;
     border: 1px solid var(--border-color);
     border-radius: 8px;
@@ -274,21 +281,48 @@ body {
 /* UC Grid Layout (UC1 e UC3) */
 .uc-grid {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
     gap: 24px;
+    align-items: start;
     max-width: 1200px;
     margin: 0 auto;
 }
 
+/* Card largo (SA II): ocupa a linha toda, formulário em colunas e resultado ao lado */
+.uc-grid .calculator-card.wide-card {
+    grid-column: 1 / -1;
+    grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+    gap: 32px;
+}
+
+.uc-grid .wide-card .result-section {
+    height: 100%;
+}
+
+.exam-field {
+    display: flex;
+    flex-direction: column;
+    margin-top: 8px;
+}
+
+/* Dentro da grade, o card empilha: formulário em cima e resultado embaixo */
 .uc-grid .calculator-card {
     max-width: none;
     margin: 0;
+    grid-template-columns: minmax(0, 1fr);
+    gap: 24px;
+}
+
+.uc-grid .result-section {
+    height: auto;
+    padding: 24px;
 }
 
 .uc-form {
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
     gap: 20px;
+    align-content: start;
 }
 
 
@@ -301,10 +335,14 @@ body {
     grid-column: 1 / -1;
 }
 
-.checkbox-label {
+.checkbox-label,
+.input-group .checkbox-label {
     display: flex;
+    flex-wrap: nowrap;
+    justify-content: flex-start;
     align-items: center;
     gap: 10px;
+    margin: 12px 0 0;
     cursor: pointer;
     font-size: 13px;
     font-weight: 500;
@@ -538,16 +576,45 @@ body {
     }
 
     .result-section {
-        margin-top: 20px;
         padding: 24px;
     }
+}
 
-    .uc-grid {
-        grid-template-columns: 1fr;
+/* Cards largos (CR): empilham quando a área de conteúdo fica estreita */
+@container content (max-width: 880px) {
+    .uc-grid .calculator-card.wide-card {
+        grid-template-columns: minmax(0, 1fr);
     }
 
-    .uc-form {
-        grid-template-columns: 1fr;
+    .uc-grid .wide-card .result-section {
+        height: auto;
+    }
+
+    .cr-card {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .cr-card .result-section {
+        height: auto;
+    }
+}
+
+@media (max-width: 600px) {
+    .content-area {
+        padding: 16px;
+    }
+
+    .calculator-card {
+        padding: 20px;
+        gap: 20px;
+    }
+
+    .top-bar {
+        padding: 0 16px;
+    }
+
+    .result-value {
+        font-size: 48px;
     }
 }
 
