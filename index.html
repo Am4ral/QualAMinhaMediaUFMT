@@ -715,7 +715,6 @@
                                     <input type="number" id="crianca2-prova" step="0.01" min="0" max="10" placeholder="0.00">
                                     <small class="field-note">Nota total da prova (objetiva + discursiva)</small>
                                 </div>
-                                <p class="notice-warning prova-warning input-full-width" role="note"><b>⚠ Atenção:</b> os pesos da prova podem mudar. Os valores apresentados são baseados na prova da turma passada.</p>
                             </form>
                             <div class="result-section">
                                 <div class="result-label">Nota Final</div>
@@ -734,31 +733,11 @@
                                     <label for="adulto2-osce">OSCE <span class="weight-badge">Peso 1</span></label>
                                     <input type="number" id="adulto2-osce" step="0.01" min="0" max="10" placeholder="0.00">
                                     <small class="field-note">Média das cinco bancadas (0–10)</small>
-                                    <label class="checkbox-label">
-                                        <input type="checkbox" id="adulto2-extra">
-                                        <span>100% de presença nas monitorias <span class="weight-badge">OSCE +0.5</span></span>
-                                    </label>
-                                    <small class="field-note">OSCE com bônus: <strong id="adulto2-osce-preview">—</strong> (máx. 10)</small>
                                 </div>
                                 <div class="input-group">
                                     <label for="adulto2-preceptoria">Preceptoria <span class="weight-badge">Peso 1</span></label>
                                     <input type="number" id="adulto2-preceptoria" step="0.01" min="0" max="10" placeholder="0.00">
                                     <small class="field-note">Média das preceptorias realizadas</small>
-                                </div>
-                                <div class="input-group exam-group">
-                                    <span class="group-label">Prova do Módulo <span class="weight-badge">Peso 2</span></span>
-                                    <div class="mode-toggle" id="adulto2-modulo-mode-toggle" role="group" aria-label="Forma de informar Prova do Módulo">
-                                        <button type="button" class="mode-btn active" data-mode="acertos" aria-pressed="true">Nº de acertos</button>
-                                        <button type="button" class="mode-btn" data-mode="nota" aria-pressed="false">Nota da prova</button>
-                                    </div>
-                                    <div class="exam-field" data-adulto2-modulo-mode="acertos">
-                                        <input type="number" id="adulto2-modulo-acertos" step="1" min="0" max="25" placeholder="Acertos (0–25)" aria-label="Acertos em Prova do Módulo (0–25)">
-                                        <small class="field-note">0.4 por questão. Nota: <strong id="adulto2-modulo-preview">—</strong></small>
-                                    </div>
-                                    <div class="exam-field" data-adulto2-modulo-mode="nota" style="display: none;">
-                                        <input type="number" id="adulto2-modulo-nota" step="0.01" min="0" max="10" placeholder="Nota (0–10)" aria-label="Nota de Prova do Módulo (0–10)">
-                                        <small class="field-note" id="adulto2-modulo-nota-hint">Nota de 0 a 10</small>
-                                    </div>
                                 </div>
                                 <div class="input-group">
                                     <label for="adulto2-tutoria">Tutorias <span class="weight-badge">Peso 3</span></label>
@@ -766,11 +745,23 @@
                                     <small class="field-note">Média das tutorias</small>
                                 </div>
                                 <div class="input-group">
+                                    <label class="checkbox-label">
+                                        <input type="checkbox" id="adulto2-extra">
+                                        <span>100% de presença nas monitorias <span class="weight-badge">OSCE +0.5</span></span>
+                                    </label>
+                                    <small class="field-note">OSCE com bônus: <strong id="adulto2-osce-preview">—</strong> (máx. 10)</small>
+                                </div>
+                                <div class="input-group">
                                     <label for="adulto2-seminario">Seminários <span class="weight-badge">Peso 1</span></label>
                                     <input type="number" id="adulto2-seminario" step="0.01" min="0" max="10" placeholder="0.00">
                                     <small class="field-note">Média dos seminários</small>
                                 </div>
-                                <div class="input-group exam-group">
+                                <div class="input-group">
+                                    <label for="adulto2-btca-pratica">BTCA Prática <span class="weight-badge">Peso 1</span></label>
+                                    <input type="number" id="adulto2-btca-pratica" step="0.01" min="0" max="10" placeholder="0.00">
+                                    <small class="field-note">Nota direta (0–10)</small>
+                                </div>
+                                                            <div class="input-group exam-group">
                                     <span class="group-label">BTCA Teórica <span class="weight-badge">Peso 1</span></span>
                                     <div class="mode-toggle" id="adulto2-btca-teorica-mode-toggle" role="group" aria-label="Forma de informar BTCA Teórica">
                                         <button type="button" class="mode-btn active" data-mode="acertos" aria-pressed="true">Nº de acertos</button>
@@ -785,12 +776,29 @@
                                         <small class="field-note" id="adulto2-btca-teorica-nota-hint">Nota de 0 a 10</small>
                                     </div>
                                 </div>
-                                <div class="input-group">
-                                    <label for="adulto2-btca-pratica">BTCA Prática <span class="weight-badge">Peso 1</span></label>
-                                    <input type="number" id="adulto2-btca-pratica" step="0.01" min="0" max="10" placeholder="0.00">
-                                    <small class="field-note">Nota direta (0–10)</small>
+                                <div class="input-group exam-group exam-span-2">
+                                    <span class="group-label">Prova do Módulo <span class="weight-badge">Peso 2</span></span>
+                                    <div class="mode-toggle" id="adulto2-modulo-mode-toggle" role="group" aria-label="Forma de informar Prova do Módulo">
+                                        <button type="button" class="mode-btn active" data-mode="acertos" aria-pressed="true">Nº de acertos</button>
+                                        <button type="button" class="mode-btn" data-mode="nota" aria-pressed="false">Nota da prova</button>
+                                    </div>
+                                    <div class="exam-field exam-field-split" data-adulto2-modulo-mode="acertos">
+                                        <div class="exam-sub">
+                                            <input type="number" id="adulto2-modulo-fechadas" step="1" min="0" max="24" placeholder="Acertos nas fechadas (0–24)" aria-label="Acertos nas fechadas da Prova do Módulo (0–24)">
+                                            <small class="field-note">24 fechadas, 0.25 cada (6 pts)</small>
+                                        </div>
+                                        <div class="exam-sub">
+                                            <input type="number" id="adulto2-modulo-abertas" step="0.01" min="0" max="4" placeholder="Abertas (0–4)" aria-label="Pontos nas questões abertas da Prova do Módulo (0–4)">
+                                            <small class="field-note">2 problemas, 4 letras cada, 0.5 por letra (4 pts)</small>
+                                        </div>
+                                        <small class="field-note exam-preview">Nota da prova: <strong id="adulto2-modulo-prova-preview">—</strong></small>
+                                    </div>
+                                    <div class="exam-field" data-adulto2-modulo-mode="nota" style="display: none;">
+                                        <input type="number" id="adulto2-modulo-prova" step="0.01" min="0" max="10" placeholder="Nota (0–10)" aria-label="Nota de Prova do Módulo (0–10)">
+                                        <small class="field-note">Nota total da prova (fechadas + abertas)</small>
+                                    </div>
                                 </div>
-                            </form>
+</form>
                             <div class="result-section">
                                 <div class="result-label">Nota Final</div>
                                 <div class="result-value" id="adulto2-result">0.00</div>

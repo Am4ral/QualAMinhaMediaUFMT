@@ -408,9 +408,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Saúde do Adulto II — pesos somam 10:
     // OSCE 1 (+0.5 de bônus, máx. 10) + Preceptoria 1 + Módulo 2 + Tutorias 3 + Seminários 1 + BTCA Teórica 1 + BTCA Prática 1
-    // Módulo (25 questões) e BTCA Teórica (20 questões) podem ser informados por acertos ou pela nota;
-    // os dois campos de cada prova ficam sincronizados e só a nota (0-10) entra na média.
-    const adulto2Exams = { 'adulto2-modulo': 25, 'adulto2-btca-teorica': 20 };
+    // Módulo (0-10): 24 fechadas (0.25 cada = 6 pts) + 2 problemas abertos de 4 letras (0.5 cada letra = 4 pts),
+    // informados por acertos + abertas ou pela nota direta (mesmo esquema de Mulher II e Criança II).
+    // BTCA Teórica (20 questões) pode ser informada por acertos ou pela nota; os dois campos ficam sincronizados.
+    const adulto2Exams = { 'adulto2-btca-teorica': 20 };
 
     function readGrade(id) {
         const v = parseFloat(document.getElementById(id).value);
@@ -448,7 +449,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const osce = isNaN(osceBase) ? NaN : Math.min(10, osceBase + (extra ? 0.5 : 0));
         document.getElementById('adulto2-osce-preview').textContent = isNaN(osce) ? '—' : osce.toFixed(2);
 
-        const modulo = readGrade('adulto2-modulo-nota');
+        const moduloRaw = getProva('adulto2-modulo', 0.25);
+        document.getElementById('adulto2-modulo-prova-preview').textContent = isNaN(moduloRaw) ? '—' : moduloRaw.toFixed(2);
+        const modulo = isNaN(moduloRaw) || moduloRaw < 0 || moduloRaw > 10 ? NaN : moduloRaw;
         const btcaTeorica = readGrade('adulto2-btca-teorica-nota');
         Object.keys(adulto2Exams).forEach(prefix => {
             const n = readGrade(`${prefix}-nota`);
@@ -488,6 +491,8 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById(`${prefix}-nota`).addEventListener('input', () => syncAdulto2Exam(prefix, 'nota'));
     });
     ['adulto2-osce', 'adulto2-preceptoria', 'adulto2-tutoria', 'adulto2-seminario', 'adulto2-btca-pratica'].forEach(id =>
+        document.getElementById(id).addEventListener('input', calculateAdulto2));
+    ['adulto2-modulo-fechadas', 'adulto2-modulo-abertas', 'adulto2-modulo-prova'].forEach(id =>
         document.getElementById(id).addEventListener('input', calculateAdulto2));
     document.getElementById('adulto2-extra').addEventListener('change', calculateAdulto2);
 

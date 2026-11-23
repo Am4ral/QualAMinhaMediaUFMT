@@ -283,7 +283,7 @@ body {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr));
     gap: 24px;
-    align-items: start;
+    align-items: stretch;
     max-width: 1200px;
     margin: 0 auto;
 }
@@ -292,11 +292,36 @@ body {
 .uc-grid .calculator-card.wide-card {
     grid-column: 1 / -1;
     grid-template-columns: minmax(0, 1fr) minmax(220px, 300px);
+    grid-template-rows: auto;
     gap: 32px;
 }
 
 .uc-grid .wide-card .result-section {
     height: 100%;
+}
+
+.uc-grid .wide-card .exam-span-2 {
+    grid-column: span 2;
+}
+
+/* SA II: três colunas fixas para os campos alinharem em linhas */
+.uc-grid .wide-card .uc-form {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.exam-field.exam-field-split {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
+    gap: 20px;
+}
+
+.exam-field-split .exam-sub {
+    display: flex;
+    flex-direction: column;
+}
+
+.exam-field-split .exam-preview {
+    grid-column: 1 / -1;
 }
 
 .exam-field {
@@ -310,6 +335,7 @@ body {
     max-width: none;
     margin: 0;
     grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
     gap: 24px;
 }
 
@@ -582,6 +608,14 @@ body {
 
 /* Cards largos (CR): empilham quando a área de conteúdo fica estreita */
 @container content (max-width: 880px) {
+    .uc-grid .wide-card .uc-form {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .uc-grid .wide-card .exam-span-2 {
+        grid-column: 1 / -1;
+    }
+
     .uc-grid .calculator-card.wide-card {
         grid-template-columns: minmax(0, 1fr);
     }
@@ -596,6 +630,16 @@ body {
 
     .cr-card .result-section {
         height: auto;
+    }
+}
+
+@container content (max-width: 560px) {
+    .uc-grid .wide-card .uc-form {
+        grid-template-columns: minmax(0, 1fr);
+    }
+
+    .uc-grid .wide-card .exam-span-2 {
+        grid-column: auto;
     }
 }
 

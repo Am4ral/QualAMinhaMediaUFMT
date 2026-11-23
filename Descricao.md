@@ -110,10 +110,10 @@ Saúde da Criança II:
 Saúde do Adulto II (pesos somam 10):
   -OSCE: 1 peso (média das 5 bancadas, nota 0 - 10; +0,5 com 100% de presença nas monitorias, máx. 10)
   -Preceptoria: 1 peso (média das preceptorias)
-  -Prova do Módulo: 2 peso (25 questões de 0,4: nota = acertos/25 x 10; botão alterna acertos OU nota direta, os campos ficam sincronizados)
+  -Prova do Módulo: 2 peso (24 fechadas de 0,25 = 6 pontos + 2 problemas abertos de 4 letras, 0,5 por letra = 4 pontos; nota = fechadas x 0,25 + abertas; botão alterna acertos + abertas OU nota direta)
   -Tutorias: 3 peso (média das tutorias)
   -Seminários: 1 peso (média dos seminários)
-  -BTCA Teórica: 1 peso (20 questões de 0,5: nota = acertos/20 x 10; mesmo botão de alternância)
+  -BTCA Teórica: 1 peso (20 questões de 0,5: nota = acertos/20 x 10; botão alterna acertos OU nota direta, campos sincronizados)
   -BTCA Prática: 1 peso (nota direta)
   -Campos vazios não valem zero: com componentes faltando a nota é parcial (média dos preenchidos) e o CR sai como projetado
 

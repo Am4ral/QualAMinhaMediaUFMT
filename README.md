@@ -146,13 +146,13 @@ O mesmo botão permite digitar a nota da prova direto. A forma de avaliação da
 |------------------------------|-----:|
 | OSCE (+0,5 de bônus, máx. 10)|   1  |
 | Preceptoria                  |   1  |
-| Prova do Módulo (25 questões)|   2  |
+| Prova do Módulo              |   2  |
 | Tutorias                     |   3  |
 | Seminários                   |   1  |
 | BTCA Teórica (20 questões)   |   1  |
 | BTCA Prática                 |   1  |
 
-Módulo e BTCA Teórica podem ser informados por nº de acertos (nota = acertos / total × 10) ou pela nota; os dois campos ficam sincronizados. Se a nota digitada não equivale a um nº inteiro de acertos, ela é mantida como está.
+A Prova do Módulo (0–10) tem 24 fechadas (0,25 cada = 6) e 2 problemas abertos de 4 letras (0,5 por letra = 4): nota = acertos nas fechadas × 0,25 + abertas (ou a nota direta, pelo botão de alternância). A BTCA Teórica pode ser informada por nº de acertos (nota = acertos / 20 × 10) ou pela nota; os dois campos ficam sincronizados. Se a nota digitada não equivale a um nº inteiro de acertos, ela é mantida como está.
 
 **CR da UC4** — soma dos pesos 17, sem usar carga horária:
 
