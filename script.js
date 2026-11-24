@@ -283,29 +283,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // CR = (CR anterior × 11 + SM II + SC II + SA II + IC IV + SS II + ADT) / 17
     // ==========================================================
 
-    // Médias das matérias com calculadora própria (SM II e SC II): valor e se está completa
+    // Médias das matérias com calculadora própria (SM II, SC II e SA II)
     const uc4Subjects = {
-        mulher2: { value: NaN, complete: false },
-        crianca2: { value: NaN, complete: false },
-        adulto2: { value: NaN, complete: false }
+        mulher2: { value: NaN },
+        crianca2: { value: NaN },
+        adulto2: { value: NaN }
     };
 
     // CR = (CR anterior × 11 + SM II + SC II + SA II + IC IV + SS II + ADT) / 17
-    // Pesos fixos, sem carga horária. Campos vazios nunca valem zero:
-    // com média pendente não há CR; com notas parciais o resultado é um CR projetado.
+    // Pesos fixos, sem carga horária. Campo vazio vale zero (igual às outras UCs).
     function calculateCR_UC4() {
-        const readInput = id => {
-            const v = parseFloat(document.getElementById(id).value);
-            return isNaN(v) ? NaN : v;
-        };
+        const readInput = id => parseFloat(document.getElementById(id).value);
         const entries = [
-            { name: 'CR anterior', value: readInput('uc4-cr-anterior'), peso: 11, complete: true },
-            { name: 'SM II', value: uc4Subjects.mulher2.value, peso: 1, complete: uc4Subjects.mulher2.complete },
-            { name: 'SC II', value: uc4Subjects.crianca2.value, peso: 1, complete: uc4Subjects.crianca2.complete },
-            { name: 'SA II', value: uc4Subjects.adulto2.value, peso: 1, complete: uc4Subjects.adulto2.complete },
-            { name: 'IC IV', value: readInput('uc4-cr-ic4'), peso: 1, complete: true },
-            { name: 'SS II', value: readInput('uc4-cr-ss2'), peso: 1, complete: true },
-            { name: 'ADT', value: readInput('uc4-cr-adt'), peso: 1, complete: true }
+            { name: 'CR anterior', value: readInput('uc4-cr-anterior'), peso: 11 },
+            { name: 'SM II', value: uc4Subjects.mulher2.value, peso: 1 },
+            { name: 'SC II', value: uc4Subjects.crianca2.value, peso: 1 },
+            { name: 'SA II', value: uc4Subjects.adulto2.value, peso: 1 },
+            { name: 'IC IV', value: readInput('uc4-cr-ic4'), peso: 1 },
+            { name: 'SS II', value: readInput('uc4-cr-ss2'), peso: 1 },
+            { name: 'ADT', value: readInput('uc4-cr-adt'), peso: 1 }
         ];
         const TOTAL_PESO = 17;
 
@@ -321,28 +317,16 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const invalid = entries.filter(e => !isNaN(e.value) && (e.value < 0 || e.value > 10));
-        const pending = entries.filter(e => isNaN(e.value));
-        if (invalid.length || pending.length) {
+        if (invalid.length) {
             resultEl.textContent = '—';
             statusEl.style.backgroundColor = neutral;
-            statusEl.textContent = invalid.length
-                ? `Valor fora de 0–10: ${invalid.map(e => e.name).join(', ')}`
-                : `Pendente: ${pending.map(e => e.name).join(', ')}`;
+            statusEl.textContent = `Valor fora de 0–10: ${invalid.map(e => e.name).join(', ')}`;
             return;
         }
 
-        const cr = entries.reduce((soma, e) => soma + e.value * e.peso, 0) / TOTAL_PESO;
+        const cr = entries.reduce((soma, e) => soma + (isNaN(e.value) ? 0 : e.value) * e.peso, 0) / TOTAL_PESO;
         resultEl.textContent = cr.toFixed(2);
-
-        const partial = entries.filter(e => !e.complete);
-        if (partial.length) {
-            labelEl.textContent = 'CR projetado';
-            statusEl.textContent = `Projetado — notas incompletas em ${partial.map(e => e.name).join(', ')}`;
-            statusEl.style.backgroundColor = neutral;
-        } else {
-            labelEl.textContent = 'CR';
-            applyStatus(statusEl, cr);
-        }
+        applyStatus(statusEl, cr);
     }
 
     // Provas de módulo do UC4: o botão alterna entre informar acertos nas fechadas + pontos
@@ -389,8 +373,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const allEmpty = values.every(v => isNaN(v));
         const nota = score / 10;
         setSubjectResult(`${prefix}-result`, `${prefix}-status`, `uc4-cr-${prefix}`, nota, allEmpty);
-        // Média só é definitiva quando todos os componentes foram preenchidos
-        uc4Subjects[prefix] = { value: allEmpty ? NaN : nota, complete: values.every(v => !isNaN(v)) };
+        uc4Subjects[prefix] = { value: allEmpty ? NaN : nota };
         calculateCR_UC4();
     }
 
@@ -446,7 +429,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function calculateAdulto2() {
         const osceBase = readGrade('adulto2-osce');
         const extra = document.getElementById('adulto2-extra').checked;
-        const osce = isNaN(osceBase) ? NaN : Math.min(10, osceBase + (extra ? 0.5 : 0));
+        // OSCE vazia vale 0, mas o bônus conta mesmo assim
+        const osce = isNaN(osceBase) && !extra ? NaN : Math.min(10, (isNaN(osceBase) ? 0 : osceBase) + (extra ? 0.5 : 0));
         document.getElementById('adulto2-osce-preview').textContent = isNaN(osce) ? '—' : osce.toFixed(2);
 
         const moduloRaw = getProva('adulto2-modulo', 0.25);
@@ -467,20 +451,12 @@ document.addEventListener('DOMContentLoaded', () => {
             { name: 'BTCA Teórica', value: btcaTeorica, peso: 1 },
             { name: 'BTCA Prática', value: readGrade('adulto2-btca-pratica'), peso: 1 }
         ];
-        const filled = components.filter(c => !isNaN(c.value));
-        const missing = components.filter(c => isNaN(c.value));
-        const allEmpty = filled.length === 0;
-        // Campos vazios não valem zero: parcial = média dos componentes já preenchidos (pesos renormalizados)
-        const pesoFilled = filled.reduce((t, c) => t + c.peso, 0);
-        const nota = allEmpty ? 0 : filled.reduce((t, c) => t + c.value * c.peso, 0) / pesoFilled;
+        const allEmpty = components.every(c => isNaN(c.value));
+        // Campo vazio vale zero: Σ(nota × peso) / 10, sempre com o peso total
+        const nota = components.reduce((t, c) => t + (isNaN(c.value) ? 0 : c.value) * c.peso, 0) / 10;
 
         setSubjectResult('adulto2-result', 'adulto2-status', 'uc4-cr-adulto2', nota, allEmpty);
-        if (!allEmpty && missing.length) {
-            const statusEl = document.getElementById('adulto2-status');
-            statusEl.textContent = `Parcial — faltam: ${missing.map(c => c.name).join(', ')}`;
-            statusEl.style.backgroundColor = 'rgba(255, 255, 255, 0.2)';
-        }
-        uc4Subjects.adulto2 = { value: allEmpty ? NaN : nota, complete: !allEmpty && !missing.length };
+        uc4Subjects.adulto2 = { value: allEmpty ? NaN : nota };
         calculateCR_UC4();
     }
 

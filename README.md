@@ -170,7 +170,7 @@ A Prova do Módulo (0–10) tem 24 fechadas (0,25 cada = 6) e 2 problemas aberto
 CR = (CR anterior × 11 + SM II + SC II + SA II + IC IV + SS II + ADT) / 17
 ```
 
-SM II, SC II e SA II são preenchidas automaticamente pelas calculadoras; IC IV, SS II e ADT são digitadas direto (0–10). Campos vazios não valem zero: com média pendente o CR não é exibido, e com notas incompletas o resultado aparece como **CR projetado** (só é **CR** com tudo preenchido).
+SM II, SC II e SA II são preenchidas automaticamente pelas calculadoras; IC IV, SS II e ADT são digitadas direto (0–10). Campos vazios valem zero, como nas outras UCs.
 
 ## Notas
 

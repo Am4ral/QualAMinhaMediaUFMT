@@ -115,7 +115,7 @@ Saúde do Adulto II (pesos somam 10):
   -Seminários: 1 peso (média dos seminários)
   -BTCA Teórica: 1 peso (20 questões de 0,5: nota = acertos/20 x 10; botão alterna acertos OU nota direta, campos sincronizados)
   -BTCA Prática: 1 peso (nota direta)
-  -Campos vazios não valem zero: com componentes faltando a nota é parcial (média dos preenchidos) e o CR sai como projetado
+  -Campos vazios valem zero (a soma é sempre dividida pelo peso total 10)
 
 Interação Comunitária IV, Saúde e Sociedade II e Apoio Diagnóstico Terapêutico (ADT):
   - Sem calculadora própria: o usuário digita direto a média final (0 - 10) no campo do CR
@@ -124,8 +124,7 @@ CR (Média Geral)
 Pesos: CR anterior 11 + SM II 1 + SC II 1 + SA II 1 + IC IV 1 + SS II 1 + ADT 1 = 17 (sem usar carga horária)
 CR = ((CR anterior x 11) + SM II + SC II + SA II + IC IV + SS II + ADT)/ 17
   - SM II, SC II e SA II vêm automaticamente das calculadoras; o CR recalcula a cada alteração
-  - Campos vazios não valem zero: com alguma média pendente o CR não é exibido
-  - Com notas incompletas em alguma matéria, o resultado aparece como CR projetado; só é CR com tudo preenchido
+  - Campos vazios valem zero, como nas outras UCs
   - Exibido com 2 casas decimais (valores intermediários mantêm a precisão)
 
 
